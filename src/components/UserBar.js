@@ -5,15 +5,23 @@ import styled from 'styled-components'
 
 const Container = styled.div`
   margin-left: auto;
+  padding: 1rem;
+  color: ${props => props.theme.lightBg2};
+
   img {
-    width: 30px;
-    height: 30px;
+    width: 54px;
+    height: 54px;
     border-radius: 100px;
     margin-right: 0.5rem;
   }
   .user {
     display: flex;
     align-items: center;
+    font-size: 16px;
+    text-transform: uppercase;
+    button {
+      margin-top: 0.5rem;
+    }
     .fa {
       margin-left: 1rem;
     }
@@ -23,14 +31,9 @@ const Container = styled.div`
 @inject('myStore')
 @observer
 export default class UserBar extends React.Component {
-  componentWillMount() {
-    const { myStore } = this.props
-    myStore.getUser()
-  }
   handleClick() {
-    this.setState({
-      isOpen: !this.state.isOpen,
-    })
+    const { onToggleMenu } = this.props
+    onToggleMenu()
   }
 
   handleLogout() {
@@ -56,8 +59,10 @@ export default class UserBar extends React.Component {
       <Container>
         <div className="user" onClick={this.handleClick}>
           <Avatar />
-          {me.display_name}
-          <i className="fa fa-angle-down" />
+          <div>
+            {me.display_name} <br />
+            <button className="btn btn-outline">Logout</button>
+          </div>
         </div>
 
         {/* <ul className="dropdown">

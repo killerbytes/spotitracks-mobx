@@ -2,7 +2,9 @@ var path = require('path')
 const webpack = require('webpack')
 
 module.exports = {
-  entry: './src/index.js',
+  entry: {
+    app: './src/index.js',
+  },
   mode: 'development',
   module: {
     rules: [
@@ -60,7 +62,7 @@ module.exports = {
       ),
       AUTHORIZE_URL: JSON.stringify('https://accounts.spotify.com/authorize'),
       API_URL: JSON.stringify('https://api.spotify.com/v1'),
-      CHART_URL: JSON.stringify('https://spotify-charts.herokuapp.com'),
+      CHART_URL: JSON.stringify('https://spoticharts.herokuapp.com'),
       APP_NAME: JSON.stringify('SPOTITRACKS'),
     }),
   ],

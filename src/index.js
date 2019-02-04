@@ -7,6 +7,7 @@ import { Provider } from 'mobx-react'
 import stores from './stores'
 import GlobalStyle from './styled'
 import '@fortawesome/fontawesome-free/css/all.css'
+import 'normalize.css'
 
 const theme = require('sass-extract-loader?{"plugins":["sass-extract-js"]}!./styled/theme.scss')
 

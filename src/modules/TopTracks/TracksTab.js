@@ -7,16 +7,15 @@ import styled from 'styled-components'
 const Form = styled.form`
   display: flex;
   align-items: center;
+  margin-bottom: 1rem;
   input {
     height: auto;
-    background: none;
+    background: ${props => props.theme.bgColor};
     border: none;
-    font-size: 2rem;
+    font-size: 1.5rem;
     color: #fff;
-    border-bottom: 1px solid #fff;
     padding: 8px 10px;
     width: 100%;
-    margin-bottom: 1rem;
     outline: none;
     flex: 1 1;
   }
@@ -65,12 +64,12 @@ export default class TopTracks extends React.Component {
     ))
     return (
       <div>
-        <Form onSubmit={this.handleSubmit}>
+        {/* <Form onSubmit={this.handleSubmit}>
           <input onChange={this.handleTextChange} value={this.name} />
           <button className="btn btn-primary" type="submit">
             Create Playlist
           </button>
-        </Form>
+        </Form> */}
         <TracksList>{mappedPlaylists}</TracksList>
       </div>
     )

@@ -1,58 +1,49 @@
 import React from 'react'
 import { inject, observer } from 'mobx-react'
-import { toJS } from 'mobx'
-import { Link } from 'react-router-dom'
-import styled from 'styled-components'
-
-const List = styled.ul`
-  margin: 0;
-  padding: 0;
-  list-style-type: none;
-  li {
-    padding: 0.5rem 0;
-    border-bottom: 1px solid #2d2d2d;
-    display: flex;
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-    span {
-      margin-left: auto;
-    }
-  }
-`
+import { toJS, observable } from 'mobx'
+import Tabs from 'styled/Tabs'
+import Merge from './tabs/Merge'
+import Delete from './tabs/Delete'
+import PlaylistTab from './tabs/Playlists'
 
 @inject('myStore', 'playlistStore')
 @observer
 export default class Playlists extends React.Component {
+  @observable tab = 0
   componentWillMount() {
     const { myStore } = this.props
     myStore.getPlaylists()
   }
-  handleDeletePlaylist = item => {
-    const { myStore, playlistStore } = this.props
-    playlistStore.deletePlaylist(item.id).then(() => {
-      myStore.playlists.items.remove(item)
-    })
+  handleTabClick = tab => {
+    this.tab = tab
+  }
+
+  handleSubmit = () => {
+    const { myStore } = this.props
+    myStore.getPlaylists()
   }
   render() {
     const { myStore } = this.props
-    const mappedPlaylists = myStore.playlists.items.map((item, key) => (
-      <li key={key}>
-        <Link to={`playlists/${item.id}`}>
-          {item.name} <small>({item.tracks.total})</small>
-        </Link>
-        <span>
-          <a onClick={() => this.handleDeletePlaylist(item)}>
-            <i className="fa fa-trash" />
-          </a>
-        </span>
-      </li>
-    ))
     return (
-      <div>
-        <List>{mappedPlaylists}</List>
-      </div>
+      <React.Fragment>
+        <Tabs>
+          <a onClick={() => this.handleTabClick(0)} className={this.tab === 0 ? 'active' : ''}>
+            PLAYLISTS
+            <span className="line" />
+          </a>
+          <a onClick={() => this.handleTabClick(1)} className={this.tab === 1 ? 'active' : ''}>
+            MERGE
+            <span className="line" />
+          </a>
+          <a onClick={() => this.handleTabClick(2)} className={this.tab === 2 ? 'active' : ''}>
+            DELETE
+            <span className="line" />
+          </a>
+        </Tabs>
+        {this.tab == 0 && <PlaylistTab items={myStore.playlists.items} />}
+        {this.tab == 1 && <Merge items={myStore.playlists.items} onSubmit={this.handleSubmit} />}
+        {this.tab == 2 && <Delete items={myStore.playlists.items} onSubmit={this.handleSubmit} />}
+      </React.Fragment>
     )
   }
 }

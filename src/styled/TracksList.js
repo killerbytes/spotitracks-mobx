@@ -5,23 +5,20 @@ const TracksList = styled.ul`
   margin: 0;
   padding: 0;
   li {
-    display: flex;
-    border-bottom: 1px solid #2d2d2d;
-    color: #fff;
-    > div {
-      width: 50%;
-      padding: 0.5rem;
-      -ms-flex-preferred-size: 50%;
-      flex-basis: 50%;
-      overflow: hidden;
-      white-space: nowrap;
-      &:first-child {
-        padding-left: 0;
+    padding: 0.5rem;
+    &.is-dupe {
+      .track,
+      .artists {
+        text-decoration: line-through;
+        color: ${props => props.theme.darkBg2};
       }
     }
-    &.is-dupe {
-      text-decoration: line-through;
-      color: #333;
+    .track {
+      color: ${props => props.theme.lightBg};
+      margin-bottom: 0.3rem;
+    }
+    .artists {
+      font-size: 12px;
     }
   }
 `

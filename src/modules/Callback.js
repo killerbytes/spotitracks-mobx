@@ -17,7 +17,7 @@ export default class Callback extends React.Component {
     userStore.token = params['#access_token']
     localStorage.setItem(`${APP_NAME}_TOKEN`, userStore.token)
     if (userStore.token) {
-      history.push('/playlists')
+      history.push('/top-tracks')
     }
   }
   render() {

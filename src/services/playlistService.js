@@ -1,3 +1,4 @@
+import axios from 'axios'
 export default class userService {
   constructor(http) {
     this.http = http
@@ -29,5 +30,9 @@ export default class userService {
     return this.http.get(`${API_URL}/playlists/${playlist_id}/tracks`, {
       offset,
     })
+  }
+
+  getCharts() {
+    return axios.get(`${CHART_URL}/api/charts`)
   }
 }
