@@ -4,13 +4,14 @@ import { observable, toJS } from 'mobx'
 import { observer, inject } from 'mobx-react'
 import CheckBox from 'components/CheckBox'
 import Modal from 'components/Modal'
+import ReactGA from 'react-ga'
 
 function getInitialState() {
   return {
-    name: '',
+    name: 'Merged playlists',
   }
 }
-@inject('playlistStore', 'myStore')
+@inject('playlistStore', 'myStore', 'commonStore')
 @observer
 export default class Merge extends React.Component {
   @observable selected = []
@@ -33,22 +34,28 @@ export default class Merge extends React.Component {
     this.formValues[e.target.name] = e.target.value
   }
   handleSubmit = () => {
-    const { onSubmit, onToggle } = this.props
-    const { playlistStore, myStore } = this.props
+    const { commonStore, playlistStore, myStore, onSubmit } = this.props
     let tracks = []
     let promises = []
     this.selected.forEach(playlist => {
       promises.push(playlistStore.getAllPlaylistTracks(playlist.id))
     })
 
+    commonStore.isLoading = true
     Promise.all(promises).then(res => {
       res.forEach(item => {
         tracks = [...tracks, ...item]
       })
       playlistStore
         .createPlaylistAddTracks(myStore.me.id, this.formValues['name'], tracks.map(item => item.track))
-        .then(() => {
+        .then(res => {
           onSubmit()
+          ReactGA.event({
+            category: 'Playlists',
+            action: 'MERGE',
+            label: res.id,
+          })
+          commonStore.isLoading = true
           this.toggleModal('playlist')
           this.selected = []
           this.formValues = getInitialState()

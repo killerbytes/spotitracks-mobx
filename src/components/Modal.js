@@ -18,6 +18,11 @@ const ModalStyle = styled.div`
     background-color: ${props => props.theme.darkBg2};
     margin: 1rem;
     width: 100%;
+    @media (min-width: 576px) {
+      width: 50%;
+      max-width: 400px;
+      margin: auto;
+    }
   }
   .modal-title {
     font-size: 12px;
@@ -44,8 +49,6 @@ export default class Modal extends React.Component {
   onClick = e => {
     const { onToggle } = this.props
     if (!this.node.contains(e.target)) {
-      // this.isOpen = false
-      console.log('close')
       onToggle()
     }
   }
@@ -53,8 +56,8 @@ export default class Modal extends React.Component {
   render() {
     const { title } = this.props
     return (
-      <ModalStyle ref={node => (this.node = node)}>
-        <div className="modal-dialog">
+      <ModalStyle>
+        <div className="modal-dialog" ref={node => (this.node = node)}>
           <div className="modal-title">{title}</div>
           <div className="modal-content">{this.props.children(this)}</div>
         </div>

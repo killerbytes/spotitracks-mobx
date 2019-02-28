@@ -20,17 +20,6 @@ export default class Playlist extends React.Component {
     playlistStore.getPlaylist(params.id)
     playlistStore.getPlaylistTracks(params.id)
   }
-  componentDidUpdate(prevProps) {
-    const { playlistStore } = this.props
-    // if (!playlistStore.playlist.images.length) return false
-    // const IMAGE_URL = playlistStore.playlist.images[1].url
-    // Vibrant.from(IMAGE_URL)
-    //   .getPalette()
-    //   .then(response => {
-    //     console.log(response)
-    //   })
-    // this.items = [...playlistStore.tracks.items]
-  }
   handleSubmit = () => {
     const { history } = this.props
     history.push('/playlists')
@@ -38,10 +27,6 @@ export default class Playlist extends React.Component {
 
   render() {
     const { playlistStore } = this.props
-    return (
-      <React.Fragment>
-        <PlaylistDetail items={playlistStore.tracks.items} onSubmit={this.handleSubmit} dupes={this.dupes} />
-      </React.Fragment>
-    )
+    return <PlaylistDetail items={playlistStore.tracks.items} onSubmit={this.handleSubmit} dupes={this.dupes} />
   }
 }

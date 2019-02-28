@@ -1,22 +1,43 @@
 import React from 'react'
-import UserBar from './UserBar'
 import styled from 'styled-components'
-import NavLinks from './NavLinks'
 import { observer } from 'mobx-react'
+import NavLinks from './NavLinks'
+import UserBar from './UserBar'
 
 const Container = styled.header`
-  padding: 1rem 0;
-  background: linear-gradient(180deg, #484848 0%, #181818 80.01%);
+  width: 100%;
+  top: 0;
+  position: sticky;
+  .header {
+    position: relative;
+    padding: 0.5rem 0;
+    background: linear-gradient(180deg, #484848 0%, #181818 80.01%);
+  }
+  .btn-menu {
+    margin-right: 1rem;
+    font-size: 1.2rem;
+  }
   .container {
     display: flex;
     align-items: center;
   }
-  img {
-    height: 40px;
+  .menu,
+  .user-bar {
+    display: none;
+    font-size: 16px;
   }
-  .menu {
-    margin-left: auto;
-    font-size: 1.2rem;
+  .user-bar {
+    margin-left: 1rem;
+    font-size: 12px;
+  }
+  @media (min-width: 576px) {
+    .btn-menu {
+      display: none;
+    }
+    .menu,
+    .user-bar {
+      display: block;
+    }
   }
 `
 @observer
@@ -25,11 +46,15 @@ export default class Header extends React.Component {
     const { onToggle } = this.props
     return (
       <Container>
-        <div className="container">
-          <img src="/assets/logo.svg" />
-          <button className="btn btn-clear menu" onClick={onToggle}>
-            <i className="fas fa-bars" />
-          </button>
+        <div className="header">
+          <div className="container">
+            <button className="btn btn-clear btn-menu" onClick={onToggle}>
+              <i className="fas fa-bars" />
+            </button>
+            <img src="/assets/logo.svg" />
+            <NavLinks />
+            <UserBar />
+          </div>
         </div>
       </Container>
     )

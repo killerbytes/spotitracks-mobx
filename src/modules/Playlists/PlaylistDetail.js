@@ -2,21 +2,9 @@ import React from 'react'
 import TracksList from 'styled/TracksList'
 import { observer, inject } from 'mobx-react'
 import { observable, toJS } from 'mobx'
-import styled from 'styled-components'
+import Page from 'styled/Page'
 import Modal from 'components/Modal'
-
-const PlaylistHeader = styled.div`
-  h1 {
-    font-size: 18px;
-    font-weight: normal;
-    text-align: center;
-  }
-  .controls {
-    display: flex;
-    justify-content: flex-end;
-    margin: 1rem 0;
-  }
-`
+import ReactGA from 'react-ga'
 
 function getInitialValues() {
   return {
@@ -113,6 +101,14 @@ export default class Tracks extends React.Component {
       this.items = observable([...playlistStore.tracks.items])
     }
   }
+  handleSave = () => {
+    const { playlistStore } = this.props
+
+    this.formValues['name'] = `${playlistStore.playlist.name} ${this.formValues['shuffle'] ? 'shuffled' : ''} ${
+      this.formValues['dedupe'] ? 'deduped' : ''
+    }`
+    this.toggleModal('playlist')
+  }
 
   handleSubmit = () => {
     const { myStore, playlistStore, onSubmit } = this.props
@@ -120,10 +116,17 @@ export default class Tracks extends React.Component {
 
     playlistStore
       .createPlaylistAddTracks(myStore.me.id, this.formValues['name'], tracks.map(item => item.track))
-      .then(() => {
+      .then(res => {
         this.toggleModal('playlist')
         this.dupes = []
+        ReactGA.event({
+          category: 'Playlist',
+          action: `${this.formValues['dedupe'] ? 'deduped|' : ''}${this.formValues['shuffle'] ? 'shuffled' : ''}`,
+          label: res.id,
+        })
+
         this.formValues = getInitialValues()
+
         onSubmit()
       })
   }
@@ -145,35 +148,32 @@ export default class Tracks extends React.Component {
     })
 
     return (
-      <React.Fragment>
-        <PlaylistHeader>
+      <Page className="container">
+        <div className="page-header">
           <h1>{playlistStore.playlist.name}</h1>
           <div className="controls">
-            <label className="btn btn-toggle">
+            <label className="btn-toggle">
               <input type="checkbox" checked={this.formValues.shuffle} onChange={this.handleShuffle} />
-              <div className="btn-bg" />
-              Shuffle
+              <div className="btn-bg btn btn-toggle">Shuffle</div>
             </label>
             {this.hasDuplicates && (
-              <label className="btn btn-toggle">
+              <label className="btn-toggle">
                 <input
                   name="dedupe"
                   type="checkbox"
                   checked={this.formValues.dedupe}
                   onChange={this.handleDuplicates}
                 />
-                <div className="btn-bg" />
-                Deduplicate
+                <div className="btn-bg btn btn-toggle">Deduplicate</div>
               </label>
             )}
-            {(this.formValues['shuffle'] || this.formValues['dedupe']) && (
-              <button className="btn btn-fab" onClick={() => this.toggleModal('playlist')}>
-                <i className="fas fa-check" />
-              </button>
-            )}
           </div>
-        </PlaylistHeader>
-
+        </div>
+        {(this.formValues['shuffle'] || this.formValues['dedupe']) && (
+          <button className="btn btn-fab" onClick={this.handleSave}>
+            <i className="fas fa-check" />
+          </button>
+        )}
         <TracksList>{mappedTracks}</TracksList>
         {this.modal['playlist'] && (
           <Modal title={`Create Playlist`} onToggle={() => this.toggleModal('playlist')}>
@@ -202,7 +202,7 @@ export default class Tracks extends React.Component {
             )}
           </Modal>
         )}
-      </React.Fragment>
+      </Page>
     )
   }
 }

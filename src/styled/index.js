@@ -6,7 +6,7 @@ body {
     background:  ${props => props.theme.darkBg};
     color: #bbb;
     font-family: Roboto, sans-serif;
-    font-size: 14px;
+    font-size: 16px;
     height: 100vh;
 }
 *, *::before, *::after {
@@ -20,8 +20,12 @@ h1,h2,h3,h4{
 a{
     color: ${props => props.theme.lightBg}
 }
+main{
+    background:  ${props => props.theme.darkBg};
+
+}
 .container{
-    max-width: 1100px;
+    max-width: 976px;
     margin: auto;
     padding-left: 1rem;
     padding-right: 1rem;
@@ -53,6 +57,9 @@ form{
     border-radius: 50px;
     transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
     cursor: pointer;
+    &:disabled{
+        opacity: .5;
+    }
     &:hover{
         /* box-shadow: inset 0 0 0 1px #b3b3b3; */
         background-color: ${props => props.theme.darkBg};
@@ -65,26 +72,6 @@ form{
     &.btn-default {
         background-color: ${props => props.theme.darkBg};
         
-    }
-    &.btn-toggle{
-        background-color: ${props => props.theme.darkBg2};
-
-        position: relative;
-        z-index: 1;
-        overflow: hidden;
-        input{
-            display: none;
-        }
-        input:checked~.btn-bg{
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            background: ${props => props.theme.primary};
-            width: 100%;
-            height: 100%;
-            z-index: -1
-        }
     }
     &.btn-primary{
         background-color: ${props => props.theme.primary};
@@ -110,9 +97,25 @@ form{
     }
 }
 
-.btn+.btn{
+.btn+.btn,
+.btn+.btn-toggle,
+.btn-toggle+.btn-toggle{
     margin-left: .5rem;
 }
+
+.btn-toggle{
+        input{
+            display: none;
+        }
+        .btn-bg{
+            background-color: ${props => props.theme.darkBg2};
+
+        }
+        input:checked+.btn-bg{
+            background: ${props => props.theme.primary};
+        }
+    }
+
 
 
 `

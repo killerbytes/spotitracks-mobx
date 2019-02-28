@@ -2,10 +2,9 @@ import React from 'react'
 import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom'
 import styled from 'styled-components'
 import { inject, observer } from 'mobx-react'
-import Loading from 'styled/Loading'
+import Loading from 'components/Loading'
 import Header from './Header'
-import NavLinks from './NavLinks'
-import UserBar from './UserBar'
+import Menu from './Menu'
 import { observable } from 'mobx'
 
 const FullSideBarLayout = styled.div`
@@ -14,16 +13,30 @@ const FullSideBarLayout = styled.div`
     flex-wrap: nowrap;
   }
 `
-const MenuContainer = styled.div`
-  background: ${props => props.theme.darkBg2};
-  position: fixed;
-  top: 72px;
+const Layout = styled.main`
+  transition: all 0.3s ease 0s;
+  transform: ${props => (props.isMenu ? `translateX(80%)` : `unset`)};
+  position: ${props => (props.isMenu ? `fixed` : `relative`)};
   width: 100%;
-  height: 100%;
-  nav a {
-    color: ${props => props.theme.lightBg};
+  header + .content {
+    min-height: 100vh;
+  }
+  @media (min-width: 576px) {
+    header + .content {
+      min-height: unset;
+    }
   }
 `
+
+const MainOverlay = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 1;
+`
+
 @inject('commonStore', 'myStore')
 @observer
 class SidebarLayout extends React.Component {
@@ -32,7 +45,6 @@ class SidebarLayout extends React.Component {
     const { myStore } = this.props
     myStore.getUser()
   }
-
   componentDidUpdate(prevProps) {
     if (this.props.location !== prevProps.location) {
       this.isMenu = false
@@ -40,34 +52,23 @@ class SidebarLayout extends React.Component {
   }
   handleToggleMenu = () => {
     this.isMenu = !this.isMenu
+  }
+  handleCloseMenu = () => {
     console.log(this.isMenu)
+    if (this.isMenu) this.isMenu = false
   }
 
   render() {
     const { commonStore } = this.props
     return (
       <React.Fragment>
-        <Header onToggle={this.handleToggleMenu} />
-        <FullSideBarLayout className="container">
-          <div className="row h-100 no-wrap">
-            <div className="col-sm main">
-              <div>{this.props.children}</div>
-            </div>
-          </div>
-          {commonStore.isLoading && (
-            <Loading className="fullscreen">
-              <span>
-                <i className="fa fa-spinner fa-spin" />
-              </span>
-            </Loading>
-          )}
-        </FullSideBarLayout>
-        {this.isMenu && (
-          <MenuContainer>
-            <UserBar />
-            <NavLinks />
-          </MenuContainer>
-        )}
+        <Menu isMenu={this.isMenu} />
+        <Layout isMenu={this.isMenu}>
+          {this.isMenu && <MainOverlay onClick={this.handleCloseMenu} />}
+          <Header {...this.props} onToggle={this.handleToggleMenu} />
+          <FullSideBarLayout className="content">{this.props.children}</FullSideBarLayout>
+          {commonStore.isLoading && <Loading isLoading={true} />}
+        </Layout>
       </React.Fragment>
     )
   }

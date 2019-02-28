@@ -1,3 +1,6 @@
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const CleanWebpackPlugin = require('clean-webpack-plugin')
+
 var path = require('path')
 const webpack = require('webpack')
 
@@ -24,23 +27,49 @@ module.exports = {
       {
         test: /\.woff2?(.*)$/,
         loader: 'url-loader?limit=10000&mimetype=application/font-woff',
+        options: {
+          name: 'fonts/[name].[ext]',
+        },
       },
       {
         test: /\.eot(.*)$/,
         loader: 'file-loader',
-      },
-      {
-        test: /\.svg(.*)$/,
-        loader: 'file-loader',
+        options: {
+          name: 'fonts/[name].[ext]',
+        },
       },
       {
         test: /\.ttf(.*)$/,
         loader: 'file-loader',
+        options: {
+          name: 'fonts/[name].[ext]',
+        },
+      },
+      {
+        test: /\.(jpe?g|png|gif)$/i,
+        loader: 'file-loader',
+        options: {
+          name: 'assets/[name].[ext]',
+        },
+      },
+      {
+        test: /\.svg(.*)$/,
+        loader: 'file-loader',
+        options: {
+          name: 'assets/[name].[ext]',
+        },
+      },
+      {
+        test: /\.mp4(.*)$/,
+        loader: 'file-loader',
+        options: {
+          name: 'assets/[name].[ext]',
+        },
       },
     ],
   },
   resolve: {
-    modules: ['node_modules', 'src', './', 'images'],
+    modules: ['node_modules', 'src', './', 'assets'],
     extensions: ['*', '.js', '.jsx'],
   },
   output: {
@@ -55,6 +84,8 @@ module.exports = {
     port: 3000,
   },
   plugins: [
+    new CleanWebpackPlugin([`${__dirname}/dist`]),
+    new HtmlWebpackPlugin({ template: `${__dirname}/index.html` }),
     new webpack.DefinePlugin({
       CLIENT_ID: JSON.stringify('96026fe448c146698831b9e0c28c9414'),
       SCOPE: JSON.stringify(

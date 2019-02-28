@@ -4,9 +4,17 @@ import { NavLink } from 'react-router-dom'
 
 const Nav = styled.ul`
   list-style-type: none;
-  margin: 0 1rem;
+  margin: 0;
+  margin-bottom: 1rem;
   padding: 0;
   font-size: 18px;
+  @media (min-width: 576px) {
+    margin-bottom: 0;
+    margin-left: auto;
+    li {
+      display: inline-block;
+    }
+  }
 
   li {
     padding: 0.5rem;
@@ -24,7 +32,7 @@ const Nav = styled.ul`
 export default class NavLinks extends React.Component {
   render() {
     return (
-      <Nav>
+      <Nav className="menu">
         <li>
           <NavLink activeClassName="active" to="/top-tracks">
             Top Tracks
@@ -32,7 +40,7 @@ export default class NavLinks extends React.Component {
         </li>
         <li>
           <NavLink activeClassName="active" to="/charts">
-            Top 200
+            Global Top 200
           </NavLink>
         </li>
         <li>

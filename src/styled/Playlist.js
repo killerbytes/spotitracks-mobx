@@ -3,6 +3,7 @@ import styled from 'styled-components'
 export default styled.ul`
   margin: 0;
   padding: 0;
+  margin-bottom: 3rem;
   list-style-type: none;
   li {
     padding: 0.5rem 0;

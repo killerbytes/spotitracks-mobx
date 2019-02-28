@@ -8,7 +8,6 @@ module.exports = merge(config, {
   devtool: 'source-map',
   plugins: [
     new webpack.DefinePlugin({
-      API_URL: JSON.stringify('/api'),
       ENVIRONMENT: JSON.stringify('production'),
       'process.env': {
         NODE_ENV: JSON.stringify('production'),

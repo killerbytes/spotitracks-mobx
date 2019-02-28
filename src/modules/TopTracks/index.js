@@ -16,9 +16,8 @@ export default class TopTracks extends React.Component {
     this.tab = tab
   }
   render() {
-    const { myStore } = this.props
     return (
-      <div>
+      <div className="container">
         <Tabs>
           <a onClick={() => this.handleTabClick(0)} className={this.tab === 0 ? 'active' : ''}>
             SHORT

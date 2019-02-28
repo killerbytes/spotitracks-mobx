@@ -9,8 +9,8 @@ const CheckBoxStyle = styled.label`
   }
   span {
     display: inline-block;
-    width: 10px;
-    height: 10px;
+    width: 13px;
+    height: 13px;
     background: ${props => props.theme.darkBg2};
     border-radius: 100%;
     margin-right: 0.5em;

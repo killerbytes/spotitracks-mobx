@@ -27,22 +27,22 @@ export default class MyStore {
     this.getAllPlaylists()
   }
   getAllPlaylists = offset => {
+    stores.commonStore.isLoading = true
     this.api.getPlaylists(offset).then(res => {
       this.playlists.items = [...this.playlists.items, ...res.items]
       if (res.offset + res.limit < res.total) {
         this.getAllPlaylists(res.offset + res.limit)
+      } else {
+        stores.commonStore.isLoading = false
       }
     })
   }
 
   getTopTracks = async (time_range = MEDIUM_TERM) => {
+    stores.commonStore.isLoading = true
     try {
       this.topTracks[time_range] = await this.api.getTopTracks(time_range)
-    } catch (err) {}
-  }
-  find = async () => {
-    try {
-      this.search = await this.api.find()
+      stores.commonStore.isLoading = false
     } catch (err) {}
   }
 }

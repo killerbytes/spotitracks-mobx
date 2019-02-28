@@ -5,7 +5,7 @@ const TracksList = styled.ul`
   margin: 0;
   padding: 0;
   li {
-    padding: 0.5rem;
+    padding: 0.5rem 0;
     &.is-dupe {
       .track,
       .artists {

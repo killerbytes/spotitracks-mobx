@@ -1,11 +1,16 @@
 import styled from 'styled-components'
 
 export default styled.nav`
+  background-color: ${props => props.theme.darkBg};
+
   display: flex;
   margin-bottom: 1rem;
   justify-content: space-between;
+  position: sticky;
+  top: 56px;
+  width: 100%;
+  padding: 1rem;
   a {
-    padding: 0.5rem 0;
     margin: 0 1rem;
     cursor: pointer;
     display: flex;

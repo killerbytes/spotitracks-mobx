@@ -3,6 +3,8 @@ import { inject, observer } from 'mobx-react'
 import { observable, toJS } from 'mobx'
 import TracksList from 'styled/TracksList'
 import styled from 'styled-components'
+import Modal from 'components/Modal'
+import ReactGA from 'react-ga'
 
 const Form = styled.form`
   display: flex;
@@ -29,25 +31,47 @@ const title = {
   long_term: 'All Time',
 }
 
+function getInitialValues() {
+  return {
+    name: 'Global Top 200',
+  }
+}
 @inject('myStore', 'playlistStore')
 @observer
 export default class TopTracks extends React.Component {
-  @observable name = ''
+  @observable formValues = getInitialValues()
+
+  @observable modal = {
+    playlist: false,
+  }
+  toggleModal = name => {
+    this.modal[name] = !this.modal[name]
+  }
+
   componentWillMount() {
     const { myStore, range } = this.props
     myStore.getTopTracks(range)
 
-    this.name = `Spotitracks ${title[range]}`
+    this.formValues['name'] = `Spotitracks ${title[range]}`
   }
-  handleTextChange = e => {
-    this.name = e.target.value
+  handleChange = e => {
+    this.formValues[e.target.name] = e.target.value
   }
+
   handleSubmit = e => {
     const { myStore, playlistStore, range, history } = this.props
     e.preventDefault()
-    playlistStore.createPlaylistAddTracks(myStore.me.id, this.name, myStore.topTracks[range].items).then(res => {
-      history.push(`/playlists/${res.id}`)
-    })
+    playlistStore
+      .createPlaylistAddTracks(myStore.me.id, this.formValues['name'], myStore.topTracks[range].items)
+      .then(res => {
+        ReactGA.event({
+          category: 'Top Tracks',
+          action: range,
+          label: res.id,
+        })
+
+        history.push(`/playlists/${res.id}`)
+      })
   }
   render() {
     const { myStore, range } = this.props
@@ -63,15 +87,46 @@ export default class TopTracks extends React.Component {
       </li>
     ))
     return (
-      <div>
-        {/* <Form onSubmit={this.handleSubmit}>
-          <input onChange={this.handleTextChange} value={this.name} />
-          <button className="btn btn-primary" type="submit">
-            Create Playlist
-          </button>
-        </Form> */}
+      <React.Fragment>
         <TracksList>{mappedPlaylists}</TracksList>
-      </div>
+        {!!mappedPlaylists.length && (
+          <button className="btn btn-fab" onClick={() => this.toggleModal('playlist')}>
+            <i className="fas fa-check" />
+          </button>
+        )}
+
+        {this.modal['playlist'] && (
+          <Modal title={`Create Playlist`} onToggle={() => this.toggleModal('playlist')}>
+            {props => (
+              <React.Fragment>
+                <form>
+                  <div className="form-group">
+                    <label>Name</label>
+                    <input
+                      className="form-control"
+                      name="name"
+                      value={this.formValues['name']}
+                      onChange={this.handleChange}
+                    />
+                  </div>
+                </form>
+                <div className="form-footer">
+                  <button className="btn btn-default" onClick={() => this.toggleModal('playlist')}>
+                    Cancel
+                  </button>
+                  <button
+                    className="btn btn-primary"
+                    onClick={this.handleSubmit}
+                    disabled={!this.formValues['name'].length}
+                  >
+                    Submit
+                  </button>
+                </div>
+              </React.Fragment>
+            )}
+          </Modal>
+        )}
+      </React.Fragment>
     )
   }
 }

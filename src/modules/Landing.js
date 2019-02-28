@@ -1,5 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
+import logo from 'assets/logo.svg'
+import video from 'assets/video.mp4'
 
 const Main = styled.div`
   &:before {
@@ -43,7 +45,7 @@ const Main = styled.div`
     img {
       min-width: 240px;
       max-width: 400px;
-      width: 100%;
+      width: 80%;
       margin-bottom: 1rem;
     }
   }
@@ -53,7 +55,7 @@ export default class Landing extends React.Component {
   generateLink() {
     const redirect_uri = `${window.location.origin}/callback`
 
-    return `${AUTHORIZE_URL}?client_id=${CLIENT_ID}&response_type=token&redirect_uri=${redirect_uri}&scope=${SCOPE}`
+    return `${AUTHORIZE_URL}?client_id=${CLIENT_ID}&response_type=token&redirect_uri=${redirect_uri}&scope=${SCOPE}&show_dialog=${true}`
   }
 
   render() {
@@ -61,9 +63,9 @@ export default class Landing extends React.Component {
       <Main>
         <div className="hero">
           <video muted={true} loop={true} autoPlay={true} className="bg-video">
-            <source src="/assets/video.mp4" type="video/mp4" />
+            <source src={video} type="video/mp4" />
           </video>
-          <img src="/assets/logo.svg" />
+          <img src={logo} />
           <a href={this.generateLink()} className="btn btn-primary">
             <i className="fab fa-spotify" /> Connect with Spotify
           </a>

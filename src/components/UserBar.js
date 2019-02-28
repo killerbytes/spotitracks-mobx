@@ -4,20 +4,22 @@ import { toJS } from 'mobx'
 import styled from 'styled-components'
 
 const Container = styled.div`
-  margin-left: auto;
-  padding: 1rem;
   color: ${props => props.theme.lightBg2};
+  position: absolute;
+  bottom: 1rem;
+  @media (min-width: 576px) {
+    position: static;
+  }
 
   img {
-    width: 54px;
-    height: 54px;
+    width: 35px;
+    height: 35px;
     border-radius: 100px;
     margin-right: 0.5rem;
   }
   .user {
     display: flex;
     align-items: center;
-    font-size: 16px;
     text-transform: uppercase;
     button {
       margin-top: 0.5rem;
@@ -31,11 +33,6 @@ const Container = styled.div`
 @inject('myStore')
 @observer
 export default class UserBar extends React.Component {
-  handleClick() {
-    const { onToggleMenu } = this.props
-    onToggleMenu()
-  }
-
   handleLogout() {
     const { dispatch, history } = this.props
 
@@ -56,20 +53,15 @@ export default class UserBar extends React.Component {
     }
 
     return (
-      <Container>
-        <div className="user" onClick={this.handleClick}>
+      <Container className="user-bar">
+        <div className="user">
           <Avatar />
           <div>
-            {me.display_name} <br />
-            <button className="btn btn-outline">Logout</button>
+            {me.display_name} {/* <small>
+              <a onClick={this.handleLogout}>Logout</a>
+            </small> */}
           </div>
         </div>
-
-        {/* <ul className="dropdown">
-          <li>
-            <a onClick={this.handleLogout}>Logout</a>
-          </li>
-        </ul> */}
       </Container>
     )
   }

@@ -26,7 +26,7 @@ export default class Playlists extends React.Component {
     const { myStore } = this.props
     return (
       <React.Fragment>
-        <Tabs>
+        <Tabs className="container">
           <a onClick={() => this.handleTabClick(0)} className={this.tab === 0 ? 'active' : ''}>
             PLAYLISTS
             <span className="line" />
@@ -40,9 +40,11 @@ export default class Playlists extends React.Component {
             <span className="line" />
           </a>
         </Tabs>
-        {this.tab == 0 && <PlaylistTab items={myStore.playlists.items} />}
-        {this.tab == 1 && <Merge items={myStore.playlists.items} onSubmit={this.handleSubmit} />}
-        {this.tab == 2 && <Delete items={myStore.playlists.items} onSubmit={this.handleSubmit} />}
+        <div className="container">
+          {this.tab == 0 && <PlaylistTab items={myStore.playlists.items} />}
+          {this.tab == 1 && <Merge items={myStore.playlists.items} onSubmit={this.handleSubmit} />}
+          {this.tab == 2 && <Delete items={myStore.playlists.items} onSubmit={this.handleSubmit} />}
+        </div>
       </React.Fragment>
     )
   }

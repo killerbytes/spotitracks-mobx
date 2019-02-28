@@ -60,10 +60,8 @@ export default class PlaylistStore {
   }
 
   getPlaylistTracks = async (playlist_id, offset) => {
-    // try {
-    //   this.tracks = await this.api.getPlaylistTracks(playlist_id, offset)
-    // } catch (err) {}
     this.tracks.items = []
+
     this.getAllPlaylistTracks(playlist_id, offset).then(res => {
       this.tracks.items = res
     })
@@ -72,6 +70,7 @@ export default class PlaylistStore {
   getAllPlaylistTracks = playlist_id => {
     return new Promise((resolve, reject) => {
       let items = []
+      stores.commonStore.isLoading = true
       const xx = (playlist_id, offset, items = []) => {
         this.api.getPlaylistTracks(playlist_id, offset).then(res => {
           items = [...items, ...res.items]
@@ -79,28 +78,21 @@ export default class PlaylistStore {
             xx(playlist_id, res.offset + res.limit, items)
           } else {
             resolve(items)
+            stores.commonStore.isLoading = false
           }
         })
       }
       xx(playlist_id, 0, items)
     })
-
-    // return new Promise((resolve, reject) => {
-    //   this.api.getPlaylistTracks(playlist_id, offset).then(res => {
-    //     // this.tracks.items = [...this.tracks.items, ...res.items]
-    //     // this.temp_tracks.items = [...this.temp_tracks.items, ...res.items]
-    //     items = [...items, ...res.items]
-    //     if (res.offset + res.limit < res.total) {
-    //       this.getAllPlaylistTracks(playlist_id, res.offset + res.limit, items)
-    //     } else {
-    //       console.log('resolve', items)
-    //       resolve(items)
-    //     }
-    //   })
-    // })
   }
 
   getCharts() {
-    return this.api.getCharts()
+    return new Promise((resolve, reject) => {
+      stores.commonStore.isLoading = true
+      this.api.getCharts().then(res => {
+        stores.commonStore.isLoading = false
+        resolve(res)
+      })
+    })
   }
 }

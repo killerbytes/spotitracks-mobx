@@ -4,8 +4,9 @@ import { observable, toJS } from 'mobx'
 import { observer, inject } from 'mobx-react'
 import CheckBox from 'components/CheckBox'
 import Modal from 'components/Modal'
+import ReactGA from 'react-ga'
 
-@inject('playlistStore', 'myStore')
+@inject('playlistStore', 'myStore', 'commonStore')
 @observer
 export default class Merge extends React.Component {
   @observable selected = []
@@ -27,13 +28,20 @@ export default class Merge extends React.Component {
     }
   }
   handleSubmit = () => {
-    const { myStore, playlistStore, onSubmit } = this.props
+    const { commonStore, playlistStore, onSubmit } = this.props
     this.selected.forEach(item => {})
     const promises = this.selected.map(item => {
       return () => playlistStore.deletePlaylist(item.id)
     })
+    commonStore.isLoading = true
     Promise.all(promises.map(item => item())).then(res => {
+      ReactGA.event({
+        category: 'Playlists',
+        action: 'DELETE',
+      })
+
       onSubmit()
+      commonStore.isLoading = false
       this.toggleModal('playlist')
       this.selected = []
     })

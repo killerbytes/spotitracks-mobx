@@ -8,6 +8,7 @@ import Landing from 'modules/Landing'
 import TopTracks from 'modules/TopTracks'
 import AuthenticatedRoute from 'components/AuthenticatedRoute'
 import Charts from 'modules/Charts'
+import ScrollToTop from 'components/ScrollToTop'
 
 const Main = styled.div`
   background: ${props => props.theme.primary};
@@ -16,15 +17,17 @@ class App extends React.Component {
   render() {
     return (
       <Router>
-        <Switch>
-          <Route path="/callback" component={Callback} />
-          <AuthenticatedRoute path="/playlists/:id" component={PlaylistContainer} />
-          <AuthenticatedRoute path="/playlists" component={Playlists} />
-          <AuthenticatedRoute path="/top-tracks" component={TopTracks} />
-          <AuthenticatedRoute path="/charts" component={Charts} />
+        <ScrollToTop>
+          <Switch>
+            <Route path="/callback" component={Callback} />
+            <AuthenticatedRoute path="/playlists/:id" component={PlaylistContainer} />
+            <AuthenticatedRoute path="/playlists" component={Playlists} />
+            <AuthenticatedRoute path="/top-tracks" component={TopTracks} />
+            <AuthenticatedRoute path="/charts" component={Charts} />
 
-          <Route path="/" component={Landing} />
-        </Switch>
+            <Route path="/" component={Landing} />
+          </Switch>
+        </ScrollToTop>
       </Router>
     )
   }
