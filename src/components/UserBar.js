@@ -12,8 +12,8 @@ const Container = styled.div`
   }
 
   img {
-    width: 35px;
-    height: 35px;
+    width: 30px;
+    height: 30px;
     border-radius: 100px;
     margin-right: 0.5rem;
   }

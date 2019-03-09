@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-d
 import styled from 'styled-components'
 import { inject, observer } from 'mobx-react'
 import Loading from 'components/Loading'
+import Main from 'components/Main'
 import Header from './Header'
 import Menu from './Menu'
 import { observable } from 'mobx'
@@ -11,20 +12,6 @@ const FullSideBarLayout = styled.div`
   background: ${props => props.theme.bgDarkGray};
   .no-wrap {
     flex-wrap: nowrap;
-  }
-`
-const Layout = styled.main`
-  transition: all 0.3s ease 0s;
-  transform: ${props => (props.isMenu ? `translateX(80%)` : `unset`)};
-  position: ${props => (props.isMenu ? `fixed` : `relative`)};
-  width: 100%;
-  header + .content {
-    min-height: 100vh;
-  }
-  @media (min-width: 576px) {
-    header + .content {
-      min-height: unset;
-    }
   }
 `
 
@@ -54,7 +41,6 @@ class SidebarLayout extends React.Component {
     this.isMenu = !this.isMenu
   }
   handleCloseMenu = () => {
-    console.log(this.isMenu)
     if (this.isMenu) this.isMenu = false
   }
 
@@ -63,12 +49,12 @@ class SidebarLayout extends React.Component {
     return (
       <React.Fragment>
         <Menu isMenu={this.isMenu} />
-        <Layout isMenu={this.isMenu}>
+        <Main isMenu={this.isMenu} {...this.props}>
           {this.isMenu && <MainOverlay onClick={this.handleCloseMenu} />}
           <Header {...this.props} onToggle={this.handleToggleMenu} />
           <FullSideBarLayout className="content">{this.props.children}</FullSideBarLayout>
           {commonStore.isLoading && <Loading isLoading={true} />}
-        </Layout>
+        </Main>
       </React.Fragment>
     )
   }

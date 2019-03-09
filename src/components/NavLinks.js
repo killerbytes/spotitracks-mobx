@@ -10,7 +10,7 @@ const Nav = styled.ul`
   font-size: 18px;
   @media (min-width: 576px) {
     margin-bottom: 0;
-    margin-left: auto;
+    margin: auto;
     li {
       display: inline-block;
     }

@@ -26,19 +26,21 @@ export default class Playlists extends React.Component {
     const { myStore } = this.props
     return (
       <React.Fragment>
-        <Tabs className="container">
-          <a onClick={() => this.handleTabClick(0)} className={this.tab === 0 ? 'active' : ''}>
-            PLAYLISTS
-            <span className="line" />
-          </a>
-          <a onClick={() => this.handleTabClick(1)} className={this.tab === 1 ? 'active' : ''}>
-            MERGE
-            <span className="line" />
-          </a>
-          <a onClick={() => this.handleTabClick(2)} className={this.tab === 2 ? 'active' : ''}>
-            DELETE
-            <span className="line" />
-          </a>
+        <Tabs>
+          <nav className="container">
+            <a onClick={() => this.handleTabClick(0)} className={this.tab === 0 ? 'active' : ''}>
+              PLAYLISTS
+              <span className="line" />
+            </a>
+            <a onClick={() => this.handleTabClick(1)} className={this.tab === 1 ? 'active' : ''}>
+              MERGE
+              <span className="line" />
+            </a>
+            <a onClick={() => this.handleTabClick(2)} className={this.tab === 2 ? 'active' : ''}>
+              DELETE
+              <span className="line" />
+            </a>
+          </nav>
         </Tabs>
         <div className="container">
           {this.tab == 0 && <PlaylistTab items={myStore.playlists.items} />}

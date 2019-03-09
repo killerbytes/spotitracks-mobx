@@ -4,6 +4,7 @@ import { observer, inject } from 'mobx-react'
 import { observable, toJS } from 'mobx'
 import Page from 'styled/Page'
 import Modal from 'components/Modal'
+import CoverImage from 'components/CoverImage'
 import ReactGA from 'react-ga'
 
 function getInitialValues() {
@@ -21,6 +22,7 @@ export default class Tracks extends React.Component {
   @observable dupes = []
   @observable items = []
   @observable formValues = getInitialValues()
+  @observable coverImg = null
 
   @observable modal = {
     playlist: false,
@@ -30,13 +32,13 @@ export default class Tracks extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { items } = this.props
+    const { items, playlistStore } = this.props
+    this.coverImg = playlistStore.playlist.images.reduce((i, v) => (i = v), {}).url || ''
     if (this.props.items !== prevProps.items) {
       this.items = [...items]
       this.hasDuplicates = this.getDuplicates().length ? true : false
     }
   }
-  componentDidMount() {}
 
   getDuplicates = () => {
     const { playlistStore } = this.props
@@ -130,7 +132,6 @@ export default class Tracks extends React.Component {
         onSubmit()
       })
   }
-
   render() {
     const { playlistStore } = this.props
     const mappedTracks = this.items.map((item, key) => {
@@ -146,35 +147,40 @@ export default class Tracks extends React.Component {
         </li>
       )
     })
-
     return (
-      <Page className="container">
+      <Page>
         <div className="page-header">
-          <h1>{playlistStore.playlist.name}</h1>
-          <div className="controls">
-            <label className="btn-toggle">
-              <input type="checkbox" checked={this.formValues.shuffle} onChange={this.handleShuffle} />
-              <div className="btn-bg btn btn-toggle">Shuffle</div>
-            </label>
-            {this.hasDuplicates && (
+          <div className="container">
+            <h1>
+              <CoverImage img={this.coverImg} /> {playlistStore.playlist.name}
+            </h1>
+            <div className="controls">
               <label className="btn-toggle">
-                <input
-                  name="dedupe"
-                  type="checkbox"
-                  checked={this.formValues.dedupe}
-                  onChange={this.handleDuplicates}
-                />
-                <div className="btn-bg btn btn-toggle">Deduplicate</div>
+                <input type="checkbox" checked={this.formValues.shuffle} onChange={this.handleShuffle} />
+                <div className="btn-bg btn btn-toggle">Shuffle</div>
               </label>
-            )}
+              {this.hasDuplicates && (
+                <label className="btn-toggle">
+                  <input
+                    name="dedupe"
+                    type="checkbox"
+                    checked={this.formValues.dedupe}
+                    onChange={this.handleDuplicates}
+                  />
+                  <div className="btn-bg btn btn-toggle">Deduplicate</div>
+                </label>
+              )}
+            </div>
           </div>
         </div>
-        {(this.formValues['shuffle'] || this.formValues['dedupe']) && (
-          <button className="btn btn-fab" onClick={this.handleSave}>
-            <i className="fas fa-check" />
-          </button>
-        )}
-        <TracksList>{mappedTracks}</TracksList>
+        <div className="container">
+          {(this.formValues['shuffle'] || this.formValues['dedupe']) && (
+            <button className="btn btn-fab" onClick={this.handleSave}>
+              <i className="fas fa-check" />
+            </button>
+          )}
+          <TracksList>{mappedTracks}</TracksList>
+        </div>
         {this.modal['playlist'] && (
           <Modal title={`Create Playlist`} onToggle={() => this.toggleModal('playlist')}>
             {props => (

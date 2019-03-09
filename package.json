@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "build": "yarn install --pure-lockfile && webpack -p --config webpack.prod.config && copy _redirects dist\\",
+    "build": "yarn install --pure-lockfile && webpack -p --config webpack.prod.config",
     "start": "webpack-dev-server  --config webpack.dev.config.js --hot --open",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -25,7 +25,8 @@
     "webpack": "^4.20.2",
     "webpack-cli": "^3.1.2",
     "webpack-dev-server": "^3.1.9",
-    "webpack-merge": "^4.1.4"
+    "webpack-merge": "^4.1.4",
+    "workbox-webpack-plugin": "^4.1.0"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.6.3",
@@ -38,6 +39,7 @@
     "normalize.css": "^8.0.1",
     "promise-throttle": "^1.0.0",
     "react": "^16.5.2",
+    "react-color-extractor": "^1.1.2",
     "react-dom": "^16.7.0",
     "react-ga": "^2.5.7",
     "react-palette": "^0.1.3",

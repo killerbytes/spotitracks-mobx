@@ -22,13 +22,13 @@ const TracksList = styled(_TracksList)`
       .circle {
         width: 25px;
         height: 25px;
-        font-size: 14px;
+        font-size: 20px;
       }
       .track {
-        font-size: 18px;
+        font-size: 180%;
       }
       .artists {
-        font-size: 14px;
+        font-size: 140%;
       }
     }
   }
@@ -101,16 +101,20 @@ export default class Charts extends React.Component {
     })
 
     return (
-      <Page className="container">
+      <Page>
         <div className="page-header">
-          <h1>Global Top 200</h1>
+          <div className="container">
+            <h1>Global Top 200</h1>
+          </div>
         </div>
-        <TracksList>{mappedTracks}</TracksList>
-        {!!mappedTracks.length && (
-          <button className="btn btn-fab" onClick={() => this.toggleModal('playlist')}>
-            <i className="fas fa-check" />
-          </button>
-        )}
+        <div className="container">
+          <TracksList>{mappedTracks}</TracksList>
+          {!!mappedTracks.length && (
+            <button className="btn btn-fab" onClick={() => this.toggleModal('playlist')}>
+              <i className="fas fa-check" />
+            </button>
+          )}
+        </div>
 
         {this.modal['playlist'] && (
           <Modal title={`Create Playlist`} onToggle={() => this.toggleModal('playlist')}>

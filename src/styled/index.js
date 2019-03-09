@@ -9,6 +9,8 @@ body {
     font-size: 16px;
     height: 100vh;
 }
+
+
 *, *::before, *::after {
     box-sizing: border-box;
 }
@@ -21,7 +23,7 @@ a{
     color: ${props => props.theme.lightBg}
 }
 main{
-    background:  ${props => props.theme.darkBg};
+    /* background:  ${props => props.theme.darkBg}; */
 
 }
 .container{
@@ -97,11 +99,14 @@ form{
     }
 }
 
-.btn+.btn,
-.btn+.btn-toggle,
-.btn-toggle+.btn-toggle{
-    margin-left: .5rem;
+@media (min-width: 576px) { 
+    .btn+.btn,
+    .btn+.btn-toggle,
+    .btn-toggle+.btn-toggle{
+        margin-left: .5rem;
+    }
 }
+
 
 .btn-toggle{
         input{

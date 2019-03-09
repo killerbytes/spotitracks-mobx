@@ -12,10 +12,13 @@ const Container = styled.header`
     position: relative;
     padding: 0.5rem 0;
     background: linear-gradient(180deg, #484848 0%, #181818 80.01%);
+    img.logo {
+      height: 34px;
+    }
   }
   .btn-menu {
     margin-right: 1rem;
-    font-size: 1.2rem;
+    font-size: 1.8rem;
   }
   .container {
     display: flex;
@@ -51,7 +54,7 @@ export default class Header extends React.Component {
             <button className="btn btn-clear btn-menu" onClick={onToggle}>
               <i className="fas fa-bars" />
             </button>
-            <img src="/assets/logo.svg" />
+            <img className="logo" src="/assets/logo.svg" />
             <NavLinks />
             <UserBar />
           </div>
