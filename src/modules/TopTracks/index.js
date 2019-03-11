@@ -19,20 +19,22 @@ export default class TopTracks extends React.Component {
     return (
       <React.Fragment>
         <Tabs>
-          <nav className="container">
-            <a onClick={() => this.handleTabClick(0)} className={this.tab === 0 ? 'active' : ''}>
-              SHORT
-              <span className="line" />
-            </a>
-            <a onClick={() => this.handleTabClick(1)} className={this.tab === 1 ? 'active' : ''}>
-              MEDIUM
-              <span className="line" />
-            </a>
-            <a onClick={() => this.handleTabClick(2)} className={this.tab === 2 ? 'active' : ''}>
-              ALL TIME
-              <span className="line" />
-            </a>
-          </nav>
+          <div className="container">
+            <nav>
+              <a onClick={() => this.handleTabClick(0)} className={this.tab === 0 ? 'active' : ''}>
+                SHORT
+                <span className="line" />
+              </a>
+              <a onClick={() => this.handleTabClick(1)} className={this.tab === 1 ? 'active' : ''}>
+                MEDIUM
+                <span className="line" />
+              </a>
+              <a onClick={() => this.handleTabClick(2)} className={this.tab === 2 ? 'active' : ''}>
+                ALL TIME
+                <span className="line" />
+              </a>
+            </nav>
+          </div>
         </Tabs>
         <div className="container">
           {this.tab == 0 && <TracksTab range={SHORT_TERM} {...this.props} />}

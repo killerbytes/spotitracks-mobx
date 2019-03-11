@@ -3,6 +3,10 @@ export default class myService {
     this.http = http
   }
 
+  removeToken() {
+    this.http.removeToken()
+  }
+
   getUser() {
     return this.http.get(`${API_URL}/me`)
   }

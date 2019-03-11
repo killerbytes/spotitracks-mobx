@@ -18,6 +18,7 @@ const Container = styled.div`
     margin-right: 0.5rem;
   }
   .user {
+    position: relative;
     display: flex;
     align-items: center;
     text-transform: uppercase;
@@ -27,15 +28,18 @@ const Container = styled.div`
     .fa {
       margin-left: 1rem;
     }
+    a {
+      cursor: pointer;
+    }
   }
 `
 
 @inject('myStore')
 @observer
 export default class UserBar extends React.Component {
-  handleLogout() {
-    const { dispatch, history } = this.props
-
+  handleLogout = () => {
+    const { myStore, history } = this.props
+    myStore.removeToken()
     history.push('/')
   }
 
@@ -57,9 +61,7 @@ export default class UserBar extends React.Component {
         <div className="user">
           <Avatar />
           <div>
-            {me.display_name} {/* <small>
-              <a onClick={this.handleLogout}>Logout</a>
-            </small> */}
+            {me.display_name} <a onClick={this.handleLogout}>Logout</a>
           </div>
         </div>
       </Container>

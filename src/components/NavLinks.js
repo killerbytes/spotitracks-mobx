@@ -17,8 +17,8 @@ const Nav = styled.ul`
   }
 
   li {
-    padding: 0.5rem;
     a {
+      padding: 0.35rem 1rem;
       color: ${props => props.theme.lightBg2};
       text-decoration: none;
       display: block;

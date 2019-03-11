@@ -7,13 +7,14 @@ export default styled.div`
   position: sticky;
   top: 50px;
   width: 100%;
-  padding: 1rem;
   nav {
     display: flex;
     justify-content: space-between;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
   }
   a {
-    margin: 0 1rem;
+    margin: 0;
     cursor: pointer;
     display: flex;
     font-weight: 300;

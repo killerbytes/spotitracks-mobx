@@ -5,15 +5,17 @@ import NavLinks from './NavLinks'
 import UserBar from './UserBar'
 
 const Container = styled.header`
+  z-index: 1;
   width: 100%;
+  height: 50px;
   top: 0;
   position: sticky;
+  padding: 0.5rem 0;
+  background: linear-gradient(180deg, #484848 0%, #181818 80.01%);
   .header {
     position: relative;
-    padding: 0.5rem 0;
-    background: linear-gradient(180deg, #484848 0%, #181818 80.01%);
     img.logo {
-      height: 34px;
+      height: 30px;
     }
   }
   .btn-menu {
@@ -49,15 +51,13 @@ export default class Header extends React.Component {
     const { onToggle } = this.props
     return (
       <Container>
-        <div className="header">
-          <div className="container">
-            <button className="btn btn-clear btn-menu" onClick={onToggle}>
-              <i className="fas fa-bars" />
-            </button>
-            <img className="logo" src="/assets/logo.svg" />
-            <NavLinks />
-            <UserBar />
-          </div>
+        <div className="container">
+          <button className="btn btn-clear btn-menu" onClick={onToggle}>
+            <i className="fas fa-bars" />
+          </button>
+          <img className="logo" src="/assets/logo.svg" />
+          <NavLinks />
+          <UserBar {...this.props} />
         </div>
       </Container>
     )

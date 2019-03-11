@@ -36,6 +36,11 @@ export default class Http {
   @observable
   token = localStorage.getItem(`${APP_NAME}_TOKEN`)
 
+  removeToken = () => {
+    localStorage.removeItem(`${APP_NAME}_TOKEN`)
+    this.token = null
+  }
+
   setToken = token => {
     localStorage.setItem(`${APP_NAME}_TOKEN`, token)
     this.token = token

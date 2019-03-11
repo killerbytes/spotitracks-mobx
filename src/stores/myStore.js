@@ -15,6 +15,9 @@ export default class MyStore {
     this.topTracks[MEDIUM_TERM] = { items: [] }
     this.topTracks[LONG_TERM] = { items: [] }
   }
+  removeToken = () => {
+    this.api.removeToken()
+  }
 
   getUser = async () => {
     try {
