@@ -74,7 +74,7 @@ module.exports = {
     extensions: ['*', '.js', '.jsx'],
   },
   output: {
-    path: path.join(__dirname, './dist'),
+    path: path.join(__dirname, './build'),
     publicPath: '/',
     filename: 'bundle.js',
   },
@@ -85,7 +85,7 @@ module.exports = {
     port: 3000,
   },
   plugins: [
-    new CleanWebpackPlugin([`${__dirname}/dist`]),
+    new CleanWebpackPlugin([`${__dirname}/build`]),
     new HtmlWebpackPlugin({ template: `${__dirname}/index.html` }),
     new WorkboxPlugin.GenerateSW(),
     new webpack.DefinePlugin({

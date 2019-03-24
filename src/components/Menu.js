@@ -26,7 +26,7 @@ export default class Menu extends React.Component {
       <MenuContainer isMenu={isMenu}>
         <div className="container">
           <NavLinks />
-          <UserBar />
+          <UserBar {...this.props} />
         </div>
       </MenuContainer>
     )

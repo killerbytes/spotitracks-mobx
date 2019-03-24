@@ -48,7 +48,7 @@ class SidebarLayout extends React.Component {
     const { commonStore } = this.props
     return (
       <React.Fragment>
-        <Menu isMenu={this.isMenu} />
+        <Menu isMenu={this.isMenu} {...this.props} />
         <Main isMenu={this.isMenu} {...this.props}>
           {this.isMenu && <MainOverlay onClick={this.handleCloseMenu} />}
           <Header {...this.props} onToggle={this.handleToggleMenu} />
