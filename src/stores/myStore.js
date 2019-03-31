@@ -1,6 +1,6 @@
+import { action, observable, toJS } from 'mobx'
+import { LONG_TERM, MEDIUM_TERM, SHORT_TERM } from '../constants'
 import stores from 'stores'
-import { observable, toJS, action } from 'mobx'
-import { SHORT_TERM, MEDIUM_TERM, LONG_TERM } from '../constants'
 
 export default class MyStore {
   @observable token = null
@@ -17,6 +17,25 @@ export default class MyStore {
   }
   removeToken = () => {
     this.api.removeToken()
+  }
+  setToken = token => {
+    this.api.setToken(token)
+  }
+  login = code => {
+    return this.api.login(code)
+  }
+  refreshToken = () => {
+    return new Promise((resolve, reject) => {
+      this.api
+        .refreshToken()
+        .then(res => {
+          if (res.data.access_token) {
+            this.setToken({ ...this.api.getToken(), ...res.data })
+            resolve(res.data)
+          }
+        })
+        .catch(err => reject(err))
+    })
   }
 
   getUser = async () => {

@@ -8,6 +8,7 @@ body {
     font-family: Roboto, sans-serif;
     font-size: 16px;
     height: 100vh;
+    user-select: none;
 }
 
 
@@ -84,15 +85,16 @@ form{
     }
     &.btn-fab{
         background-color: ${props => props.theme.primary};
+        position: absolute;
+        top: -2rem;
+        right: 1rem;
         width: 45px;
         height: 45px;
         font-size: 1.2rem;
         display: flex;
         align-items: center;
         justify-content: center;
-        position: fixed;
-        bottom: 1rem;
-        right: 1rem;
+        margin-left: auto;
     }
     &.btn-outline{
         border: 1px solid ${props => props.theme.lightBg2};

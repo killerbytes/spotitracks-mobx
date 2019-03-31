@@ -36,6 +36,9 @@ const ModalStyle = styled.div`
   }
   .form-footer {
     text-align: center;
+    button + button {
+      margin-left: 0.5rem;
+    }
   }
 `
 @observer

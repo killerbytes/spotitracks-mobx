@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 const CheckBoxStyle = styled.label`
+  cursor: pointer;
   display: flex;
   align-items: center;
   input[type='checkbox'] {

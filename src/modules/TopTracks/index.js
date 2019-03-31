@@ -36,11 +36,9 @@ export default class TopTracks extends React.Component {
             </nav>
           </div>
         </Tabs>
-        <div className="container">
-          {this.tab == 0 && <TracksTab range={SHORT_TERM} {...this.props} />}
-          {this.tab == 1 && <TracksTab range={MEDIUM_TERM} {...this.props} />}
-          {this.tab == 2 && <TracksTab range={LONG_TERM} {...this.props} />}
-        </div>
+        {this.tab == 0 && <TracksTab range={SHORT_TERM} {...this.props} />}
+        {this.tab == 1 && <TracksTab range={MEDIUM_TERM} {...this.props} />}
+        {this.tab == 2 && <TracksTab range={LONG_TERM} {...this.props} />}
       </React.Fragment>
     )
   }

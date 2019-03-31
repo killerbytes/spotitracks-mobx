@@ -42,11 +42,9 @@ export default class Playlists extends React.Component {
             </a>
           </nav>
         </Tabs>
-        <div className="container">
-          {this.tab == 0 && <PlaylistTab items={myStore.playlists.items} />}
-          {this.tab == 1 && <Merge items={myStore.playlists.items} onSubmit={this.handleSubmit} />}
-          {this.tab == 2 && <Delete items={myStore.playlists.items} onSubmit={this.handleSubmit} />}
-        </div>
+        {this.tab == 0 && <PlaylistTab items={myStore.playlists.items} />}
+        {this.tab == 1 && <Merge items={myStore.playlists.items} onSubmit={this.handleSubmit} />}
+        {this.tab == 2 && <Delete items={myStore.playlists.items} onSubmit={this.handleSubmit} />}
       </React.Fragment>
     )
   }

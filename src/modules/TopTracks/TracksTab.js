@@ -2,6 +2,7 @@ import React from 'react'
 import { inject, observer } from 'mobx-react'
 import { observable, toJS } from 'mobx'
 import TracksList from 'styled/TracksList'
+import BottomGradient from 'styled/BottomGradient'
 import styled from 'styled-components'
 import Modal from 'components/Modal'
 import ReactGA from 'react-ga'
@@ -88,12 +89,18 @@ export default class TopTracks extends React.Component {
     ))
     return (
       <React.Fragment>
-        <TracksList>{mappedPlaylists}</TracksList>
-        {!!mappedPlaylists.length && (
-          <button className="btn btn-fab" onClick={() => this.toggleModal('playlist')}>
-            <i className="fas fa-check" />
-          </button>
-        )}
+        <div className="container">
+          <TracksList>{mappedPlaylists}</TracksList>
+        </div>
+        <BottomGradient>
+          <div className="container">
+            {!!mappedPlaylists.length && (
+              <button className="btn btn-fab" onClick={() => this.toggleModal('playlist')}>
+                <i className="fas fa-check" />
+              </button>
+            )}
+          </div>
+        </BottomGradient>
 
         {this.modal['playlist'] && (
           <Modal title={`Create Playlist`} onToggle={() => this.toggleModal('playlist')}>

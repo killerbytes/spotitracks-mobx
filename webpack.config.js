@@ -87,8 +87,9 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin([`${__dirname}/build`]),
     new HtmlWebpackPlugin({ template: `${__dirname}/index.html` }),
-    new WorkboxPlugin.GenerateSW(),
+    new WorkboxPlugin.GenerateSW({ skipWaiting: true }),
     new webpack.DefinePlugin({
+      APP_NAME: JSON.stringify('SPOTITRACKS'),
       CLIENT_ID: JSON.stringify('96026fe448c146698831b9e0c28c9414'),
       SCOPE: JSON.stringify(
         'playlist-modify-private playlist-modify-public playlist-read-private user-read-private user-read-email user-top-read'
@@ -96,7 +97,7 @@ module.exports = {
       AUTHORIZE_URL: JSON.stringify('https://accounts.spotify.com/authorize'),
       API_URL: JSON.stringify('https://api.spotify.com/v1'),
       CHART_URL: JSON.stringify('https://spoticharts.herokuapp.com'),
-      APP_NAME: JSON.stringify('SPOTITRACKS'),
+      OAUTH_URL: JSON.stringify('https://spotitracks-auth.herokuapp.com'),
     }),
   ],
 }

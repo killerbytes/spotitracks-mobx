@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { observable } from 'mobx'
 import { observer, inject } from 'mobx-react'
 import CheckBox from 'components/CheckBox'
+import BottomGradient from '../../../styled/BottomGradient'
 
 @inject('playlistStore', 'myStore')
 @observer
@@ -44,7 +45,10 @@ export default class Merge extends React.Component {
 
     return (
       <React.Fragment>
-        <PlaylistStyle>{mappedPlaylists}</PlaylistStyle>
+        <div className="container">
+          <PlaylistStyle>{mappedPlaylists}</PlaylistStyle>
+        </div>
+        <BottomGradient />
       </React.Fragment>
     )
   }

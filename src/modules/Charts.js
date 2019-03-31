@@ -6,6 +6,7 @@ import Modal from 'components/Modal'
 import styled from 'styled-components'
 import Page from 'styled/Page'
 import ReactGA from 'react-ga'
+import BottomGradient from '../styled/BottomGradient'
 
 const TracksList = styled(_TracksList)`
   li {
@@ -109,12 +110,16 @@ export default class Charts extends React.Component {
         </div>
         <div className="container">
           <TracksList>{mappedTracks}</TracksList>
-          {!!mappedTracks.length && (
-            <button className="btn btn-fab" onClick={() => this.toggleModal('playlist')}>
-              <i className="fas fa-check" />
-            </button>
-          )}
         </div>
+        <BottomGradient>
+          <div className="container">
+            {!!mappedTracks.length && (
+              <button className="btn btn-fab" onClick={() => this.toggleModal('playlist')}>
+                <i className="fas fa-check" />
+              </button>
+            )}
+          </div>
+        </BottomGradient>
 
         {this.modal['playlist'] && (
           <Modal title={`Create Playlist`} onToggle={() => this.toggleModal('playlist')}>

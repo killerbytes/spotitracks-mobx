@@ -30,6 +30,7 @@ const Container = styled.div`
     }
     a {
       cursor: pointer;
+      margin-left: 0.5rem;
     }
   }
 `
@@ -61,7 +62,11 @@ export default class UserBar extends React.Component {
         <div className="user">
           <Avatar />
           <div>
-            {me.display_name} <a onClick={this.handleLogout}>Logout</a>
+            {me.display_name}
+
+            <a onClick={this.handleLogout} label="Sign out">
+              <i className="fas fa-sign-out-alt" />
+            </a>
           </div>
         </div>
       </Container>

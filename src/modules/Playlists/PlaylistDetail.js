@@ -6,6 +6,7 @@ import Page from 'styled/Page'
 import Modal from 'components/Modal'
 import CoverImage from 'components/CoverImage'
 import ReactGA from 'react-ga'
+import BottomGradient from '../../styled/BottomGradient'
 
 function getInitialValues() {
   return {
@@ -174,13 +175,17 @@ export default class Tracks extends React.Component {
           </div>
         </div>
         <div className="container">
-          {(this.formValues['shuffle'] || this.formValues['dedupe']) && (
-            <button className="btn btn-fab" onClick={this.handleSave}>
-              <i className="fas fa-check" />
-            </button>
-          )}
           <TracksList>{mappedTracks}</TracksList>
         </div>
+        <BottomGradient>
+          <div className="container">
+            {(this.formValues['shuffle'] || this.formValues['dedupe']) && (
+              <button className="btn btn-fab" onClick={this.handleSave}>
+                <i className="fas fa-check" />
+              </button>
+            )}
+          </div>
+        </BottomGradient>
         {this.modal['playlist'] && (
           <Modal title={`Create Playlist`} onToggle={() => this.toggleModal('playlist')}>
             {props => (

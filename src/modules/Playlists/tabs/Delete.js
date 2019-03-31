@@ -5,6 +5,7 @@ import { observer, inject } from 'mobx-react'
 import CheckBox from 'components/CheckBox'
 import Modal from 'components/Modal'
 import ReactGA from 'react-ga'
+import BottomGradient from '../../../styled/BottomGradient'
 
 @inject('playlistStore', 'myStore', 'commonStore')
 @observer
@@ -58,12 +59,18 @@ export default class Merge extends React.Component {
     ))
     return (
       <React.Fragment>
-        <PlaylistStyle>{mappedPlaylists}</PlaylistStyle>
-        {this.selected.length > 0 && (
-          <button className="btn btn-fab" onClick={() => this.toggleModal('playlist')}>
-            <i className="fas fa-check" />
-          </button>
-        )}
+        <div className="container">
+          <PlaylistStyle>{mappedPlaylists}</PlaylistStyle>
+        </div>
+        <BottomGradient>
+          <div className="container">
+            {this.selected.length > 0 && (
+              <button className="btn btn-fab" onClick={() => this.toggleModal('playlist')}>
+                <i className="fas fa-check" />
+              </button>
+            )}
+          </div>
+        </BottomGradient>
         {this.modal['playlist'] && (
           <Modal title={`Warning`} onToggle={() => this.toggleModal('playlist')}>
             {props => (

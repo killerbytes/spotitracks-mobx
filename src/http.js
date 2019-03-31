@@ -1,10 +1,12 @@
+import { observable, toJS } from 'mobx'
 import axios from 'axios'
-import { observable } from 'mobx'
+import stores from './stores'
+const headers = () => {
+  const token = JSON.parse(localStorage.getItem(`${APP_NAME}_APP`)) || {}
 
-const headers = token => {
   return {
     headers: {
-      Authorization: token,
+      Authorization: `Bearer ${token.access_token}`,
     },
   }
 }
@@ -17,14 +19,34 @@ axios.interceptors.response.use(
     return config
   },
   function(error) {
+    if (error.message === 'Network Error') {
+      console.log(error.message)
+      return false
+    }
     const {
-      response: { status },
+      response: {
+        status,
+        data: {
+          error: { message },
+        },
+      },
     } = error
-
     switch (status) {
       case 401:
-        localStorage.removeItem(`${APP_NAME}_TOKEN`)
-        window.location = '/login'
+        switch (message) {
+          case 'The access token expired':
+            return stores.myStore.refreshToken().then(res => {
+              error.config.headers['Authorization'] = `Bearer ${res.access_token}`
+              return axios.request(error.config)
+            })
+
+            break
+          default:
+            sessionStorage.setItem('SPOTITRACKS_REDIR', window.location.pathname)
+            window.location = '/login'
+            break
+        }
+
         break
       // case 404:
       //   window.location = '/404'
@@ -32,21 +54,10 @@ axios.interceptors.response.use(
     return Promise.reject(error)
   }
 )
+
 export default class Http {
-  @observable
-  token = localStorage.getItem(`${APP_NAME}_TOKEN`)
-
-  removeToken = () => {
-    localStorage.removeItem(`${APP_NAME}_TOKEN`)
-    this.token = null
-  }
-
-  setToken = token => {
-    localStorage.setItem(`${APP_NAME}_TOKEN`, token)
-    this.token = token
-  }
   get = (url, payload = {}) => {
-    const config = Object.assign({ params: payload }, headers(`Bearer ${this.token}`))
+    const config = Object.assign({ params: payload }, headers())
     return new Promise((resolve, reject) => {
       axios
         .get(url, config)
@@ -55,7 +66,7 @@ export default class Http {
     })
   }
   post = (url, payload) => {
-    const config = Object.assign(headers(`Bearer ${this.token}`), {})
+    const config = Object.assign(headers(), {})
     return new Promise((resolve, reject) => {
       axios
         .post(url, payload, config)
@@ -64,7 +75,7 @@ export default class Http {
     })
   }
   put = (url, payload) => {
-    const config = Object.assign(headers(`Bearer ${this.token}`), {})
+    const config = Object.assign(headers(), {})
     return new Promise((resolve, reject) => {
       axios
         .put(url, payload, config)
@@ -73,7 +84,7 @@ export default class Http {
     })
   }
   delete = url => {
-    const config = Object.assign(headers(`Bearer ${this.token}`), {})
+    const config = Object.assign(headers(), {})
     return new Promise((resolve, reject) => {
       axios
         .delete(url, config)

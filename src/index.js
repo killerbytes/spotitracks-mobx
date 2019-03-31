@@ -1,16 +1,16 @@
+import '@fortawesome/fontawesome-free/js/brands'
+import '@fortawesome/fontawesome-free/js/fontawesome'
+import '@fortawesome/fontawesome-free/js/regular'
+import '@fortawesome/fontawesome-free/js/solid'
+import { Provider } from 'mobx-react'
+import { ThemeProvider } from 'styled-components'
+import App from './App'
+import GlobalStyle from './styled'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import App from './App'
-import registerServiceWorker from './registerServiceWorker'
-import { ThemeProvider } from 'styled-components'
-import { Provider } from 'mobx-react'
-import stores from './stores'
-import GlobalStyle from './styled'
-import '@fortawesome/fontawesome-free/js/fontawesome'
-import '@fortawesome/fontawesome-free/js/solid'
-import '@fortawesome/fontawesome-free/js/regular'
-import '@fortawesome/fontawesome-free/js/brands'
 import ReactGA from 'react-ga'
+import registerServiceWorker from './registerServiceWorker'
+import stores from './stores'
 
 ReactGA.initialize('UA-47322639-3')
 
@@ -31,14 +31,3 @@ ReactDOM.render(
   document.getElementById('root')
 )
 registerServiceWorker()
-
-// navigator.serviceWorker
-//   .getRegistrations()
-//   .then(function(registrations) {
-//     for (let registration of registrations) {
-//       registration.unregister()
-//     }
-//   })
-//   .catch(function(err) {
-//     console.log('Service Worker registration failed: ', err)
-//   })

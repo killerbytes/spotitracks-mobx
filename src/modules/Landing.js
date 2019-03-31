@@ -1,7 +1,8 @@
+import logo from 'assets/logo.svg'
 import React from 'react'
 import styled from 'styled-components'
-import logo from 'assets/logo.svg'
 import video from 'assets/video.mp4'
+import { inject } from 'mobx-react'
 
 const Main = styled.div`
   &:before {
@@ -51,11 +52,20 @@ const Main = styled.div`
   }
 `
 
+@inject('myStore')
 export default class Landing extends React.Component {
+  componentWillMount() {
+    const { history } = this.props
+    const token = JSON.parse(localStorage.getItem(`${APP_NAME}_APP`))
+    if (token && token.access_token) {
+      history.push('/playlists')
+    }
+  }
   generateLink() {
     const redirect_uri = `${window.location.origin}/callback`
+    // const redirect_uri = `http://localhost:5000/callback`
 
-    return `${AUTHORIZE_URL}?client_id=${CLIENT_ID}&response_type=token&redirect_uri=${redirect_uri}&scope=${SCOPE}&show_dialog=${true}`
+    return `${AUTHORIZE_URL}?client_id=${CLIENT_ID}&response_type=code&redirect_uri=${redirect_uri}&scope=${SCOPE}&show_dialog=true`
   }
 
   render() {

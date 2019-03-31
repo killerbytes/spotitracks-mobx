@@ -1,26 +1,29 @@
 import React from 'react'
 import { inject } from 'mobx-react'
+import { parse } from 'query-string'
+import Loading from 'components/Loading'
 
 @inject('myStore')
 export default class Callback extends React.Component {
   componentWillMount() {
     const { location, history, myStore } = this.props
-    const params = JSON.parse(
-      '{"' +
-        decodeURI(location.hash)
-          .replace(/"/g, '\\"')
-          .replace(/&/g, '","')
-          .replace(/=/g, '":"') +
-        '"}'
-    )
+    const { code } = parse(location.search)
 
-    myStore.token = params['#access_token']
-    localStorage.setItem(`${APP_NAME}_TOKEN`, myStore.token)
-    if (myStore.token) {
-      history.push('/top-tracks')
-    }
+    myStore.login(code).then(res => {
+      if (res.data.error === 'invalid_grant') {
+        history.push('/')
+      } else if (res.data.access_token) {
+        const redir = sessionStorage.getItem('SPOTITRACKS_REDIR')
+        myStore.setToken(res.data)
+        if (redir) {
+          history.push(redir)
+        } else {
+          history.push('/top-tracks')
+        }
+      }
+    })
   }
   render() {
-    return <div>Callback</div>
+    return <Loading />
   }
 }
