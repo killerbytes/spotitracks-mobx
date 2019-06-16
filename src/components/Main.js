@@ -18,7 +18,7 @@ const Layout = styled.main`
     width: 100%;
     height: 100%;
     z-index: -1;
-    animation: AnimationName 22s ease infinite;
+    /* animation: AnimationName 22s ease infinite; */
     /* background: linear-gradient(129deg, #000, #545353, #2d2d2d, #484848, #545353); */
     background: ${props =>
       `linear-gradient(129deg,${props.setColor ? props.colors : `#000, #545353, #2d2d2d, #484848, #545353`})`};

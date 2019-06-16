@@ -95,6 +95,7 @@ form{
         align-items: center;
         justify-content: center;
         margin-left: auto;
+        box-shadow: 0 0 5px 0 #000;
     }
     &.btn-outline{
         border: 1px solid ${props => props.theme.lightBg2};

@@ -2,6 +2,7 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const webpack = require('webpack')
 const merge = require('webpack-merge')
 const config = require('./webpack.config')
+const WorkboxPlugin = require('workbox-webpack-plugin')
 
 module.exports = merge(config, {
   mode: 'production',
@@ -14,5 +15,6 @@ module.exports = merge(config, {
       },
     }),
     new UglifyJsPlugin(),
+    new WorkboxPlugin.GenerateSW({ skipWaiting: true }),
   ],
 })

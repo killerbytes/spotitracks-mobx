@@ -1,6 +1,5 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
-const WorkboxPlugin = require('workbox-webpack-plugin')
 
 var path = require('path')
 const webpack = require('webpack')
@@ -87,7 +86,6 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin([`${__dirname}/build`]),
     new HtmlWebpackPlugin({ template: `${__dirname}/index.html` }),
-    new WorkboxPlugin.GenerateSW({ skipWaiting: true }),
     new webpack.DefinePlugin({
       APP_NAME: JSON.stringify('SPOTITRACKS'),
       CLIENT_ID: JSON.stringify('96026fe448c146698831b9e0c28c9414'),

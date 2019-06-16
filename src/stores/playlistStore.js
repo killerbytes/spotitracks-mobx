@@ -1,4 +1,4 @@
-import { action, observable, toJS } from 'mobx'
+import { observable, toJS } from 'mobx'
 import PromiseThrottle from 'promise-throttle'
 import stores from 'stores'
 
@@ -15,7 +15,6 @@ export default class PlaylistStore {
   createPlaylistAddTracks = async (user_id, name, tracks) => {
     return new Promise((resolve, reject) => {
       const results = []
-      const req = []
       const promiseThrottle = new PromiseThrottle({
         requestsPerSecond: 5, // up to 1 request per second
         promiseImplementation: Promise, // the Promise library you are using

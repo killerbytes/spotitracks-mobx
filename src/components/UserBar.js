@@ -33,6 +33,11 @@ const Container = styled.div`
       margin-left: 0.5rem;
     }
   }
+  .social-fb {
+    font-size: 20px;
+    color: #4267b2;
+    margin-right: 1rem;
+  }
 `
 
 @inject('myStore')
@@ -60,6 +65,9 @@ export default class UserBar extends React.Component {
     return (
       <Container className="user-bar">
         <div className="user">
+          <a className="social-fb" href="https://www.facebook.com/Spotitracks-189230884967129/">
+            <i className="fab fa-facebook" />
+          </a>
           <Avatar />
           <div>
             {me.display_name}
