@@ -45,6 +45,13 @@ export default class myService {
     })
   }
 
+  getCurrentPlaying() {
+    return this.http.get(`${API_URL}/me/player/currently-playing`)
+  }
+  nextTrack() {
+    return this.http.post(`${API_URL}/me/player/next`)
+  }
+
   getTopTracks(time_range, offset) {
     return this.http.get(`${API_URL}/me/top/tracks`, {
       limit: 50,

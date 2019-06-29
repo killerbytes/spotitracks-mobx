@@ -90,7 +90,7 @@ module.exports = {
       APP_NAME: JSON.stringify('SPOTITRACKS'),
       CLIENT_ID: JSON.stringify('96026fe448c146698831b9e0c28c9414'),
       SCOPE: JSON.stringify(
-        'playlist-modify-private playlist-modify-public playlist-read-private user-read-private user-read-email user-top-read'
+        'playlist-modify-private playlist-modify-public playlist-read-private user-modify-playback-state user-read-private user-read-email user-top-read user-read-currently-playing'
       ),
       AUTHORIZE_URL: JSON.stringify('https://accounts.spotify.com/authorize'),
       API_URL: JSON.stringify('https://api.spotify.com/v1'),

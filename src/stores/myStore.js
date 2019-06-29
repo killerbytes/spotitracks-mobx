@@ -59,7 +59,12 @@ export default class MyStore {
       }
     })
   }
-
+  getCurrentPlaying = () => {
+    return this.api.getCurrentPlaying()
+  }
+  nextTrack = () => {
+    return this.api.nextTrack()
+  }
   getTopTracks = async (time_range = MEDIUM_TERM) => {
     stores.commonStore.isLoading = true
     try {
