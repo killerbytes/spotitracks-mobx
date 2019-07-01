@@ -12,7 +12,7 @@ export default class Blocker extends React.Component {
     setTimeout(() => {
       myStore.getCurrentPlaying().then(res => {
         this.playing = res
-        const found = this.blocked.find(i => i.item.id === this.playing.item.id)
+        const found = this.playing && this.blocked && this.blocked.find(i => i.item.id === this.playing.item.id)
         if (found) {
           myStore.nextTrack()
         }
@@ -43,13 +43,17 @@ export default class Blocker extends React.Component {
     })
     return (
       <div>
-        <strong>{item.name}</strong> <br />
-        {item.artists
-          .map(artist => artist.name)
-          .toString()
-          .replace(',', ', ')}
-        <button onClick={this.handleBlock}>Block</button>
-        <ul>{mappedBlocked}</ul>
+        {item && (
+          <React.Fragment>
+            <strong>{item.name}</strong> <br />
+            {item.artists
+              .map(artist => artist.name)
+              .toString()
+              .replace(',', ', ')}
+            <button onClick={this.handleBlock}>Block</button>
+            <ul>{mappedBlocked}</ul>
+          </React.Fragment>
+        )}
       </div>
     )
   }
