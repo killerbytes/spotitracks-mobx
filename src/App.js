@@ -1,26 +1,34 @@
+import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
+import AuthenticatedRoute from 'components/AuthenticatedRoute';
+import Blocker from 'modules/Blocker';
+import Callback from 'modules/Callback';
+import Charts from 'modules/Charts';
+import Landing from 'modules/Landing';
+import PlaylistContainer from 'modules/Playlists/PlaylistContainer';
+import Playlists from 'modules/Playlists';
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import ScrollToTop from 'components/ScrollToTop';
+import TopTracks from 'modules/TopTracks';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  render() {
+    return (
+      <Router>
+        <ScrollToTop>
+          <Switch>
+            <Route path="/callback" component={Callback} />
+            <AuthenticatedRoute path="/playlists/:id" component={PlaylistContainer} />
+            <AuthenticatedRoute path="/playlists" component={Playlists} />
+            <AuthenticatedRoute path="/top-tracks" component={TopTracks} />
+            <AuthenticatedRoute path="/charts" component={Charts} />
+            <AuthenticatedRoute path="/blocker" component={Blocker} />
+
+            <Route path="/" component={Landing} />
+          </Switch>
+        </ScrollToTop>
+      </Router>
+    );
+  }
 }
 
 export default App;

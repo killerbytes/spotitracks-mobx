@@ -3,12 +3,26 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.12.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "axios": "^0.19.2",
+    "firebase-admin": "^8.9.2",
+    "mobx": "^5.15.4",
+    "mobx-react": "^6.1.4",
+    "node-vibrant": "^3.1.5",
+    "normalize.css": "^8.0.1",
+    "promise-throttle": "^1.0.1",
+    "query-string": "^6.10.1",
     "react": "^16.12.0",
+    "react-color-extractor": "^1.1.2",
     "react-dom": "^16.12.0",
-    "react-scripts": "3.3.1"
+    "react-ga": "^2.7.0",
+    "react-palette": "^1.0.1",
+    "react-router-dom": "^5.1.2",
+    "react-scripts": "3.3.1",
+    "styled-components": "^5.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -30,5 +44,18 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "eslint-plugin-react": "^7.18.0",
+    "eslint-plugin-sort-imports-es6-autofix": "^0.5.0",
+    "node-sass": "^4.13.1",
+    "prettier": "^1.19.1",
+    "sass-extract": "^2.1.0",
+    "sass-extract-js": "^0.4.0",
+    "sass-extract-loader": "^1.1.0",
+    "sass-loader": "^8.0.2"
   }
 }
