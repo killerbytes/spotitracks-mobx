@@ -13,14 +13,14 @@ const TracksList = styled.ul`
         color: ${props => props.theme.darkBg2};
       }
     }
-    .track {
-      color: ${props => props.theme.lightBg};
-      margin-bottom: 0.3rem;
-    }
-    .artists {
-      font-size: 12px;
-    }
   }
+      .track {
+        color: ${props => props.theme.lightBg};
+        margin-bottom: 0.3rem;
+      }
+      .artists {
+        font-size: 12px;
+      }
 `
 
 export default TracksList

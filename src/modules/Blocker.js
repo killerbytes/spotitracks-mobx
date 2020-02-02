@@ -1,5 +1,7 @@
 import { inject } from 'mobx-react';
 import React from 'react';
+import TracksList from 'styled/TracksList';
+import styled from 'styled-components';
 
 const Blocker = ({ myStore, fireStore }) => {
   const [playing, setPlaying] = React.useState({ item: { artists: [] } });
@@ -49,32 +51,84 @@ const Blocker = ({ myStore, fireStore }) => {
   const mappedBlocked = blocked.map((i, key) => {
     return (
       <li key={key}>
-        {i.item.name} -{' '}
-        {i.item.artists
-          .map((artist) => artist.name)
-          .toString()
-          .replace(',', ', ')}
-        <button onClick={() => handleRemove(i)}>Remove</button>
+        <TrackStyled>
+          <div>
+            <div className="track">{i.item.name}</div>
+            <div className="artists">
+              {i.item.artists
+                .map((artist) => artist.name)
+                .toString()
+                .replace(',', ', ')}
+            </div>
+          </div>
+          <button onClick={() => handleRemove(i)}>Unblock</button>
+        </TrackStyled>
       </li>
     );
   });
 
   return (
-    <div className="container">
-      {item && (
-        <React.Fragment>
-          <strong>{item.name}</strong> <br />
-          {item.artists
-            .map((artist) => artist.name)
-            .toString()
-            .replace(',', ', ')}
-          <button disabled={!item.id} onClick={handleBlock}>
-            Block
-          </button>
-          <ul>{mappedBlocked}</ul>
-        </React.Fragment>
-      )}
-    </div>
+    <>
+      <HeaderStyled>
+        <div className="container">
+          <TrackStyled>
+            {item.id && <>
+              <div>
+                <div className="track">{item.name}</div>
+                <div className="artists">
+                  {item.artists
+                    .map((artist) => artist.name)
+                    .toString()
+                    .replace(',', ', ')}
+                </div>
+              </div>
+              <button disabled={!item.id} onClick={handleBlock}>Block</button>
+            </>}
+          </TrackStyled>
+        </div>
+
+      </HeaderStyled>
+      <div className="container">
+        {item && (
+          <React.Fragment>
+
+            <TracksList>
+              {mappedBlocked}
+            </TracksList>
+          </React.Fragment>
+        )}
+      </div>
+
+    </>
   );
 };
 export default inject('myStore', 'fireStore')(Blocker);
+
+const TrackStyled = styled.div`
+display: flex;
+.track {
+  color: ${props => props.theme.lightBg};
+  margin-bottom: 0.3rem;
+}
+.artists {
+  font-size: .8em;
+}
+button{
+  margin-left: auto;
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer
+}
+`
+const HeaderStyled = styled.header`
+   background-color: ${(props) => props.theme.darkBg};
+margin-bottom: 1rem;
+font-size: 150%;
+padding:1rem 0;
+position: sticky;
+top: 50px;
+button{
+  color: ${props => props.theme.primary};
+}
+`
