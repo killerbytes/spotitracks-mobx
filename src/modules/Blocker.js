@@ -1,77 +1,80 @@
-import { decorate, observable } from 'mobx';
-import { inject, observer } from 'mobx-react';
-// import Firebase from 'firebase-admin';
+import { inject } from 'mobx-react';
 import React from 'react';
-// import serviceAccount from '../service-account-file.json';
 
-// Firebase.initializeApp({
-//   credential: Firebase.credential.cert(serviceAccount),
-//   databaseURL: 'https://spotitracks.firebaseio.com',
-// });
+const Blocker = ({ myStore, fireStore }) => {
+  const [playing, setPlaying] = React.useState({ item: { artists: [] } });
+  const [blocked, setBlocked] = React.useState([]);
 
-class Blocker extends React.Component {
-  playing = { item: { artists: [] } };
-  blocked = [];
+  const getCurrentPlaying = React.useCallback(() => {
+    myStore.getCurrentPlaying().then((res) => {
+      setPlaying(res);
+      const found = playing && blocked.find((i) => i.item.id === playing.item.id);
+      if (found) {
+        myStore.nextTrack();
+      }
+    });
+  }, [blocked, myStore, playing]);
 
-  getCurrentPlaying = () => {
-    const { myStore } = this.props;
-    setTimeout(() => {
-      myStore.getCurrentPlaying().then((res) => {
-        this.playing = res;
-        const found = this.playing && this.blocked && this.blocked.find((i) => i.item.id === this.playing.item.id);
-        if (found) {
-          myStore.nextTrack();
-        }
-        this.getCurrentPlaying();
-      });
+  React.useEffect(() => {
+    const timer = setTimeout(() => {
+      getCurrentPlaying();
     }, 3000);
-  };
-  componentDidMount() {
-    this.blocked = JSON.parse(localStorage.getItem('blocked')) || [];
-    // this.getCurrentPlaying()
-  }
-  handleBlock = () => {
-    const { myStore } = this.props;
+    return () => clearTimeout(timer);
+  }, [blocked, myStore, playing, getCurrentPlaying]);
 
-    myStore.nextTrack();
-    this.blocked.push(this.playing);
-    localStorage.setItem('blocked', JSON.stringify(this.blocked));
+  React.useEffect(() => {
+    if (myStore.me.id) {
+      fireStore.findAll(myStore.me.id).then((res) => {
+        setBlocked(res.blocklist);
+      });
+    }
+  }, [myStore.me.id, fireStore]);
+
+  const handleBlock = () => {
+    const blocklist = [...blocked, playing];
+    fireStore.create(myStore.me.id, { blocklist }).then(() => {
+      setBlocked(blocklist);
+      myStore.nextTrack().then(() => {
+        getCurrentPlaying();
+      });
+    });
   };
-  render() {
-    const { item } = this.playing;
-    const mappedBlocked = this.blocked.map((i, key) => {
-      return (
-        <li key={key}>
-          {i.item.name} -{' '}
-          {i.item.artists
+  const handleRemove = ({ item }) => {
+    const blocklist = blocked.filter((i) => i.item.id !== item.id);
+    fireStore.create(myStore.me.id, { blocklist }).then(() => {
+      setBlocked(blocklist);
+    });
+  };
+  const { item } = playing;
+  const mappedBlocked = blocked.map((i, key) => {
+    return (
+      <li key={key}>
+        {i.item.name} -{' '}
+        {i.item.artists
+          .map((artist) => artist.name)
+          .toString()
+          .replace(',', ', ')}
+        <button onClick={() => handleRemove(i)}>Remove</button>
+      </li>
+    );
+  });
+
+  return (
+    <div className="container">
+      {item && (
+        <React.Fragment>
+          <strong>{item.name}</strong> <br />
+          {item.artists
             .map((artist) => artist.name)
             .toString()
             .replace(',', ', ')}
-        </li>
-      );
-    });
-    return (
-      <div className="container">
-        {item && (
-          <React.Fragment>
-            <strong>{item.name}</strong> <br />
-            {item.artists
-              .map((artist) => artist.name)
-              .toString()
-              .replace(',', ', ')}
-            <button onClick={this.handleBlock}>Block</button>
-            <ul>{mappedBlocked}</ul>
-          </React.Fragment>
-        )}
-      </div>
-    );
-  }
-}
-export default inject('myStore')(
-  observer(
-    decorate(Blocker, {
-      playing: observable,
-      blocked: observable,
-    })
-  )
-);
+          <button disabled={!item.id} onClick={handleBlock}>
+            Block
+          </button>
+          <ul>{mappedBlocked}</ul>
+        </React.Fragment>
+      )}
+    </div>
+  );
+};
+export default inject('myStore', 'fireStore')(Blocker);

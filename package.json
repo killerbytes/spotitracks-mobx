@@ -8,7 +8,7 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "axios": "^0.19.2",
-    "firebase-admin": "^8.9.2",
+    "firebase": "^7.8.0",
     "mobx": "^5.15.4",
     "mobx-react": "^6.1.4",
     "node-vibrant": "^3.1.5",
