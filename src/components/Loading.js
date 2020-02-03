@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 
 class Loading extends Component {
   render() {
@@ -6,8 +6,8 @@ class Loading extends Component {
       <div className="loading-container">
         <div className="loading" />
       </div>
-    )
+    );
   }
 }
 
-export default Loading
+export default Loading;

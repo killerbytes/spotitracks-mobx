@@ -20,7 +20,9 @@ const SidebarLayout = ({ children, location, commonStore, myStore }) => {
     setIsMenu(!isMenu);
   };
   const handleCloseMenu = () => {
-    if (this.isMenu) this.isMenu = false;
+    if (isMenu) {
+      setIsMenu(false);
+    }
   };
 
   return (

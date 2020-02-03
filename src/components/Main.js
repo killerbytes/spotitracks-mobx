@@ -10,7 +10,7 @@ const Layout = styled.main`
   position: ${(props) => (props.isMenu ? `fixed` : `relative`)};
   width: 100%;
   header + .content {
-    min-height: 100vh;
+    min-height: calc(100vh - 50px);
   }
   &:before {
     content: '';

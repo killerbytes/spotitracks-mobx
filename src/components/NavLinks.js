@@ -1,6 +1,6 @@
-import React from 'react'
-import styled from 'styled-components'
-import { NavLink } from 'react-router-dom'
+import { NavLink } from 'react-router-dom';
+import React from 'react';
+import styled from 'styled-components';
 
 const Nav = styled.ul`
   list-style-type: none;
@@ -18,8 +18,8 @@ const Nav = styled.ul`
 
   li {
     a {
-      padding: 0.35rem 1rem;
-      color: ${props => props.theme.lightBg2};
+      padding: 0.5rem;
+      color: ${(props) => props.theme.lightBg2};
       text-decoration: none;
       display: block;
     }
@@ -27,12 +27,12 @@ const Nav = styled.ul`
       color: #fff;
     }
   }
-`
+`;
 
 export default class NavLinks extends React.Component {
   render() {
     return (
-      <Nav className="menu">
+      <Nav className="menu xx">
         <li>
           <NavLink activeClassName="active" to="/top-tracks">
             Top Tracks
@@ -48,7 +48,12 @@ export default class NavLinks extends React.Component {
             Playlists
           </NavLink>
         </li>
+        {/* <li>
+          <NavLink activeClassName="active" to="/blocker">
+            Track Blocker
+          </NavLink>
+        </li> */}
       </Nav>
-    )
+    );
   }
 }

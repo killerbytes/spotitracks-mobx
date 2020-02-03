@@ -36,7 +36,7 @@ const Container = styled.header`
     margin-left: 1rem;
     font-size: 12px;
   }
-  @media (min-width: 576px) {
+  @media (min-width: 768px) {
     .btn-menu {
       display: none;
     }

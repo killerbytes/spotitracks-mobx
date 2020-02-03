@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export default styled.div`
   background-color: ${(props) => props.theme.darkBg};
-
+  box-shadow: 5px 0 5px #000;
   margin-bottom: 1rem;
   position: sticky;
   top: 50px;
