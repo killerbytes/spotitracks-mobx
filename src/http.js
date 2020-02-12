@@ -19,8 +19,7 @@ axios.interceptors.response.use(
   },
   function(error) {
     if (error.message === 'Network Error') {
-      console.log(error.message);
-      return false;
+      return Promise.reject({ response: { data: { error } } });
     }
     const {
       response: {

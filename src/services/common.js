@@ -20,7 +20,7 @@ export default class commonServices {
 
   getCurrentUser() {
     const config = Object.assign(headers(), {});
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       this.http
         .get(`${API_URL}/me`, config)
         .then((res) => resolve(res.data))
@@ -36,14 +36,14 @@ export default class commonServices {
         offset,
       },
     });
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       this.http.get(`${API_URL}/me/top/tracks`, config).then((res) => resolve(res.data));
     });
   }
 
   createPlaylist(title, owner_id) {
     const config = Object.assign(headers(), {});
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       this.http
         .post(
           `${API_URL}/users/${owner_id}/playlists`,
@@ -61,14 +61,14 @@ export default class commonServices {
         limit: 50,
       },
     });
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       this.http.get(`${API_URL}/users/${owner_id}/playlists/${playlist_id}`, config).then((res) => resolve(res.data));
     });
   }
 
   followPlaylist(owner_id, playlist_id) {
     const config = Object.assign(headers(), {});
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       this.http
         .put(`${API_URL}/users/${owner_id}/playlists/${playlist_id}/followers`, {}, config)
         .then((res) => resolve(res.data));
@@ -77,7 +77,7 @@ export default class commonServices {
 
   unfollowPlaylist(owner_id, playlist_id) {
     const config = Object.assign(headers(), {});
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       this.http
         .delete(`${API_URL}/users/${owner_id}/playlists/${playlist_id}/followers`, config)
         .then((res) => resolve(res));
@@ -86,7 +86,7 @@ export default class commonServices {
 
   saveTracks(user_id, playlist_id, uris) {
     const config = Object.assign(headers(), { data: { uris: uris } });
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       this.http
         .post(`${API_URL}/users/${user_id}/playlists/${playlist_id}/tracks`, {}, config)
         .then((res) => resolve(res.data));
@@ -104,7 +104,7 @@ export default class commonServices {
         offset,
       },
     });
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       this.http
         .get(`${API_URL}/users/${owner_id}/playlists/${playlist_id}/tracks`, config)
         .then((res) => resolve(res.data));
@@ -122,7 +122,7 @@ export default class commonServices {
 
   deleteTracks(user_id, playlist_id, tracks) {
     const config = Object.assign(headers(), { data: { tracks } });
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       this.http
         .delete(`${API_URL}/users/${user_id}/playlists/${playlist_id}/tracks`, config)
         .then((res) => resolve(res.data))
@@ -132,7 +132,7 @@ export default class commonServices {
 
   replaceTracks(user_id, playlist_id) {
     const config = Object.assign(headers(), {});
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       this.http
         .put(`${API_URL}/users/${user_id}/playlists/${playlist_id}/tracks`, {}, config)
         .then((res) => resolve(res.data));
@@ -145,13 +145,13 @@ export default class commonServices {
         ids,
       },
     });
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       this.http.get(`${API_URL}/artists`, config).then((res) => resolve(res.data));
     });
   }
 
   getChart() {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       this.http.get(`${process.env.REACT_APP_CHART_URL}/api/charts`, {}).then((res) => resolve(res.data));
     });
   }

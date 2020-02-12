@@ -6,7 +6,7 @@
     "codeFrame": false
   },
   "extends": ["eslint:recommended", "prettier"],
-  "plugins": ["react", "sort-imports-es6-autofix", "prettier"],
+  "plugins": ["react", "react-hooks", "sort-imports-es6-autofix", "prettier"],
   "settings": {
     "import/resolver": {
       "node": {
@@ -32,6 +32,8 @@
     "no-extra-semi": 0,
     "no-unused-vars": 2,
     "no-undef": 2,
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
     "react/jsx-uses-vars": 2,
     "react/jsx-key": 2,
     "react/jsx-no-duplicate-props": 2,

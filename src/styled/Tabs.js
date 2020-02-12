@@ -9,7 +9,7 @@ export default styled.div`
   width: 100%;
   nav {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     padding-top: 1rem;
     padding-bottom: 1rem;
   }

@@ -1,5 +1,4 @@
 import CommonStore from './commonStore';
-import FireStore from './fireStore';
 import MyStore from './myStore';
 import PlaylistStore from './playlistStore';
 
@@ -8,5 +7,4 @@ export default {
   commonStore: new CommonStore(services.commonService),
   myStore: new MyStore(services.myService),
   playlistStore: new PlaylistStore(services.playlistService),
-  fireStore: new FireStore(services.firestoreService),
 };

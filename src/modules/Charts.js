@@ -84,7 +84,7 @@ class Charts extends React.Component {
 
         {this.modal['playlist'] && (
           <Modal title={`Create Playlist`} onToggle={() => this.toggleModal('playlist')}>
-            {(props) => (
+            {() => (
               <React.Fragment>
                 <form>
                   <div className="form-group">

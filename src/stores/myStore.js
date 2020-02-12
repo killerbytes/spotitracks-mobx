@@ -41,7 +41,9 @@ class MyStore {
   getUser = async () => {
     try {
       this.me = await this.api.getUser();
-    } catch (err) {}
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   getPlaylists = () => {

@@ -14,7 +14,6 @@ import ReactGA from 'react-ga';
 import stores from './stores';
 
 ReactGA.initialize('UA-47322639-3');
-/* eslint import/no-webpack-loader-syntax: off */
 const theme = require('sass-extract-loader?{"plugins":["sass-extract-js"]}!./styled/theme.scss');
 
 ReactDOM.render(

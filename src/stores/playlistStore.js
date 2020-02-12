@@ -13,7 +13,7 @@ class PlaylistStore {
   }
 
   createPlaylistAddTracks = async (user_id, name, tracks) => {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       const results = [];
       const promiseThrottle = new PromiseThrottle({
         requestsPerSecond: 5, // up to 1 request per second
@@ -55,7 +55,9 @@ class PlaylistStore {
   getPlaylist = async (playlist_id) => {
     try {
       this.playlist = await this.api.getPlaylist(playlist_id);
-    } catch (err) {}
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   getPlaylistTracks = async (playlist_id, offset) => {
@@ -67,7 +69,7 @@ class PlaylistStore {
   };
 
   getAllPlaylistTracks = (playlist_id) => {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       let items = [];
       stores.commonStore.isLoading = true;
       const xx = (playlist_id, offset, items = []) => {
@@ -86,7 +88,7 @@ class PlaylistStore {
   };
 
   getCharts() {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       stores.commonStore.isLoading = true;
       this.api.getCharts().then((res) => {
         stores.commonStore.isLoading = false;

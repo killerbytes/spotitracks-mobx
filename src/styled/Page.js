@@ -1,14 +1,15 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export default styled.div`
   .page-header {
-    background-color: ${props => props.theme.darkBg};
+    background-color: ${(props) => props.theme.darkBg};
     width: 100%;
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
     position: sticky;
     top: 50px;
     margin-bottom: 1rem;
+    z-index: 10;
     & > div {
       display: flex;
       align-items: center;
@@ -40,4 +41,4 @@ export default styled.div`
       }
     }
   }
-`
+`;

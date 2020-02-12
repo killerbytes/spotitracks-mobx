@@ -15,6 +15,7 @@ class Landing extends React.Component {
   generateLink() {
     const redirect_uri = `${window.location.origin}/callback`;
     // const redirect_uri = `http://localhost:5000/callback`
+    // eslint-disable-next-line max-len
     return `${process.env.REACT_APP_AUTHORIZE_URL}?client_id=${process.env.REACT_APP_SPOTIFY_CLIENT_ID}&response_type=code&redirect_uri=${redirect_uri}&scope=${process.env.REACT_APP_SCOPE}&show_dialog=true`;
   }
 

@@ -28,12 +28,12 @@ class Merge extends React.Component {
   };
   handleSubmit = () => {
     const { commonStore, playlistStore, onSubmit } = this.props;
-    this.selected.forEach((item) => {});
+    this.selected.forEach(() => {});
     const promises = this.selected.map((item) => {
       return () => playlistStore.deletePlaylist(item.id);
     });
     commonStore.isLoading = true;
-    Promise.all(promises.map((item) => item())).then((res) => {
+    Promise.all(promises.map((item) => item())).then(() => {
       ReactGA.event({
         category: 'Playlists',
         action: 'DELETE',
@@ -71,7 +71,7 @@ class Merge extends React.Component {
         </BottomGradient>
         {this.modal['playlist'] && (
           <Modal title={`Warning`} onToggle={() => this.toggleModal('playlist')}>
-            {(props) => (
+            {() => (
               <React.Fragment>
                 <p>Are you sure you want to delete the selected playlists?</p>
                 <p>
