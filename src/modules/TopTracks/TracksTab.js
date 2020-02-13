@@ -5,6 +5,7 @@ import BottomGradient from 'styled/BottomGradient';
 import Modal from 'components/Modal';
 import React from 'react';
 import ReactGA from 'react-ga';
+import TrackItem from 'components/TrackItem';
 import TracksList from 'styled/TracksList';
 
 const title = {
@@ -54,16 +55,8 @@ class TopTracks extends React.Component {
   };
   render() {
     const { myStore, range } = this.props;
-    const mappedPlaylists = myStore.topTracks[range].items.map((item, key) => (
-      <li key={key}>
-        <div className="track">{item.name}</div>
-        <div className="artists">
-          {item.artists
-            .map((artist) => artist.name)
-            .toString()
-            .replace(',', ', ')}
-        </div>
-      </li>
+    const mappedPlaylists = myStore.topTracks[range].items.map(({ name, artists }, key) => (
+      <TrackItem key={key} name={name} artists={artists}></TrackItem>
     ));
     return (
       <React.Fragment>

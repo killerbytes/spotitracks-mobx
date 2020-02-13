@@ -1,21 +1,22 @@
 import React from 'react';
+import TrackItem from 'components/TrackItem';
 import TracksList from 'styled/TracksList';
-import TrackStyled from 'styled/TracksStyled';
 
 const Artists = ({ items, onRemove }) => {
-  const mappedTracks = items.map((i, key) => {
+  const mappedTracks = items.map((item, key) => {
+    const { name, artists } = item;
     return (
-      <li key={key}>
-        <TrackStyled>
-          <div>
-            <div className="track">{i.name}</div>
-          </div>
-          <button onClick={() => onRemove(i, 'artists')}>
+      <TrackItem
+        key={key}
+        name={name}
+        artists={artists}
+        actions={
+          <button onClick={() => onRemove(item, 'artists')}>
             {' '}
             <i className="fas fa-times"></i>
           </button>
-        </TrackStyled>
-      </li>
+        }
+      />
     );
   });
   return <TracksList>{mappedTracks}</TracksList>;

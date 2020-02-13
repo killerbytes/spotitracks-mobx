@@ -12,9 +12,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import ReactGA from 'react-ga';
 import stores from './stores';
+import theme from 'styled/theme';
 
 ReactGA.initialize('UA-47322639-3');
-const theme = require('sass-extract-loader?{"plugins":["sass-extract-js"]}!./styled/theme.scss');
 
 ReactDOM.render(
   <Provider {...stores}>

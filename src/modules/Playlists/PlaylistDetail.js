@@ -6,6 +6,7 @@ import Modal from 'components/Modal';
 import Page from 'styled/Page';
 import React from 'react';
 import ReactGA from 'react-ga';
+import TrackItem from 'components/TrackItem';
 import TracksList from 'styled/TracksList';
 
 function getInitialValues() {
@@ -133,19 +134,6 @@ class Tracks extends React.Component {
   };
   render() {
     const { playlistStore } = this.props;
-    const mappedTracks = this.items.map((item, key) => {
-      return (
-        <li key={key} className={this.dupes.indexOf(item) !== -1 ? 'is-dupe' : ''}>
-          <div className="track">{item.track.name}</div>
-          <div className="artists">
-            {item.track.artists
-              .map((artist) => artist.name)
-              .toString()
-              .replace(',', ', ')}
-          </div>
-        </li>
-      );
-    });
     return (
       <Page>
         <div className="page-header">
@@ -173,7 +161,19 @@ class Tracks extends React.Component {
           </div>
         </div>
         <div className="container">
-          <TracksList>{mappedTracks}</TracksList>
+          <TracksList>
+            {this.items.map((item, key) => {
+              const { name, artists } = item.track;
+              return (
+                <TrackItem
+                  key={key}
+                  name={name}
+                  artists={artists}
+                  className={this.dupes.indexOf(item) !== -1 ? 'is-dupe' : ''}
+                />
+              );
+            })}
+          </TracksList>
         </div>
         <BottomGradient>
           <div className="container">

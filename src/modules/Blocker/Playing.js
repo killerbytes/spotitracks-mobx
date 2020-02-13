@@ -1,13 +1,22 @@
 import React from 'react';
 import styled from 'styled-components';
-import TrackStyled from 'styled/TracksStyled';
+import TrackItem from 'components/TrackItem';
 
 export default ({ playing, playing: { item = {} }, onBlock, isLoading }) => {
   return (
     <PageHeaderStyled className="page-header">
-      <div className="container">
+      <ul className="container">
         {item.id ? (
-          <TrackStyled className="header">
+          <TrackItem
+            className="header"
+            name={item.name}
+            artists={item.artists}
+            actions={
+              <button disabled={!item.id || isLoading} onClick={() => onBlock(playing)}>
+                Block
+              </button>
+            }
+          >
             <div>
               <div className="track">{item.name}</div>
               <div className="artists">
@@ -21,14 +30,11 @@ export default ({ playing, playing: { item = {} }, onBlock, isLoading }) => {
                 ))}
               </div>
             </div>
-            <button disabled={!item.id || isLoading} onClick={() => onBlock(playing)}>
-              Block
-            </button>
-          </TrackStyled>
+          </TrackItem>
         ) : (
           <h1>Spotify is not playing</h1>
         )}
-      </div>
+      </ul>
     </PageHeaderStyled>
   );
 };

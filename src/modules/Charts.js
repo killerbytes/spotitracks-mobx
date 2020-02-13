@@ -7,6 +7,7 @@ import Page from 'styled/Page';
 import React from 'react';
 import ReactGA from 'react-ga';
 import styled from 'styled-components';
+import TrackItem from 'components/TrackItem';
 
 function getInitialValues() {
   return {
@@ -48,19 +49,9 @@ class Charts extends React.Component {
     });
   };
   render() {
-    const mappedTracks = this.charts.items.map((item, key) => {
-      return (
-        <li key={key}>
-          <div>
-            <span className="circle">{item.position}</span>
-          </div>
-          <div>
-            <div className="track">{item.name}</div>
-            <div className="artists">{item.artist}</div>
-          </div>
-        </li>
-      );
-    });
+    const mappedTracks = this.charts.items.map(({ name, artists, position }, key) => (
+      <TrackItem key={key} position={position} name={name} artists={artists} />
+    ));
 
     return (
       <Page>

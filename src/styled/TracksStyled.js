@@ -9,14 +9,7 @@ const TrackStyled = styled.div`
   .artists {
     font-size: 0.8em;
   }
-  button {
-    outline: none;
-    margin-left: auto;
-    background: none;
-    border: none;
-    color: inherit;
-    cursor: pointer;
-  }
+
   &.header {
     width: 100%;
     button {
