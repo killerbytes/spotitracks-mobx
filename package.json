@@ -12,7 +12,7 @@
     "firebase": "^10.4.0",
     "mobx": "^6.10.2",
     "mobx-react": "^9.0.1",
-    "node-vibrant": "^3.0.0",
+    "node-vibrant": "^3.1.6",
     "normalize.css": "^8.0.1",
     "promise-throttle": "^1.1.2",
     "query-string": "^8.1.0",
