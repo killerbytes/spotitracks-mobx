@@ -1,9 +1,8 @@
-import { createGlobalStyle } from 'styled-components'
+import { createGlobalStyle } from 'styled-components';
 
 export default createGlobalStyle`
-@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700');
 body {
-    background:  ${props => props.theme.darkBg};
+    background:  ${(props) => props.theme.darkBg};
     color: #bbb;
     font-family: Roboto, sans-serif;
     font-size: 16px;
@@ -17,14 +16,14 @@ body {
 }
 h1,h2,h3,h4{
     font-weight: 500;
-    color: ${props => props.theme.lightBg};
+    color: ${(props) => props.theme.lightBg};
 
 }
 a{
-    color: ${props => props.theme.lightBg}
+    color: ${(props) => props.theme.lightBg}
 }
 main{
-    /* background:  ${props => props.theme.darkBg}; */
+    /* background:  ${(props) => props.theme.darkBg}; */
 
 }
 .container{
@@ -49,11 +48,11 @@ form{
 .btn{
     outline: none;
     font-size: 11px;
-    background-color: ${props => props.theme.darkBg2};
+    background-color: ${(props) => props.theme.darkBg2};
     width: auto;
     display: inline-block;
     border: none;
-    color: ${props => props.theme.lightBg};
+    color: ${(props) => props.theme.lightBg};
     text-transform: uppercase;
     text-decoration: none;
     padding: .5rem 1rem;
@@ -65,7 +64,7 @@ form{
     }
     &:hover{
         /* box-shadow: inset 0 0 0 1px #b3b3b3; */
-        background-color: ${props => props.theme.darkBg};
+        background-color: ${(props) => props.theme.darkBg};
     }
     &.btn-clear{
         padding: 0;
@@ -73,18 +72,18 @@ form{
         box-shadow: none;
     }
     &.btn-default {
-        background-color: ${props => props.theme.darkBg};
+        background-color: ${(props) => props.theme.darkBg};
         
     }
     &.btn-primary{
-        background-color: ${props => props.theme.primary};
+        background-color: ${(props) => props.theme.primary};
         &:hover{
             box-shadow: none;
             background-color: #1ed760;
         }
     }
     &.btn-fab{
-        background-color: ${props => props.theme.primary};
+        background-color: ${(props) => props.theme.primary};
         position: absolute;
         top: -2rem;
         right: 1rem;
@@ -98,7 +97,7 @@ form{
         box-shadow: 0 0 5px 0 #000;
     }
     &.btn-outline{
-        border: 1px solid ${props => props.theme.lightBg2};
+        border: 1px solid ${(props) => props.theme.lightBg2};
     }
 }
 
@@ -116,14 +115,14 @@ form{
             display: none;
         }
         .btn-bg{
-            background-color: ${props => props.theme.darkBg2};
+            background-color: ${(props) => props.theme.darkBg2};
 
         }
         input:checked+.btn-bg{
-            background: ${props => props.theme.primary};
+            background: ${(props) => props.theme.primary};
         }
     }
 
 
 
-`
+`;
