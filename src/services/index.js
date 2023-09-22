@@ -2,7 +2,7 @@ import CommonService from './common';
 import MyService from './myService';
 import PlaylistService from './playlistService';
 
-import Http from '../http';
+import Http from './http';
 
 const http = new Http();
 

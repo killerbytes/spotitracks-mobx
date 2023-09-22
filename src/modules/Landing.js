@@ -1,21 +1,26 @@
 import logo from 'assets/logo.svg';
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import video from 'assets/video.mp4';
+import { useStore } from 'stores';
+import { useNavigate } from 'react-router-dom';
 
-const  Landing =()=> {
-  // const token = JSON.parse(localStorage.getItem(`${process.env.REACT_APP_APP_NAME}_APP`));
-  // if (token && token.access_token) {
-  //   history.push('/playlists');
-  // }
-const generateLink = ()=> {
+const Landing = () => {
+  const { myStore } = useStore();
+  const navigate = useNavigate();
+
+  const generateLink = () => {
     const redirect_uri = `${window.location.origin}/callback`;
-    // const redirect_uri = `http://localhost:5000/callback`
-    // eslint-disable-next-line max-len
     return `${process.env.REACT_APP_AUTHORIZE_URL}?client_id=${process.env.REACT_APP_SPOTIFY_CLIENT_ID}&response_type=code&redirect_uri=${redirect_uri}&scope=${process.env.REACT_APP_SCOPE}&show_dialog=true`;
-  }
+  };
 
-  
+  useEffect(() => {
+    const token = myStore.getToken();
+    if (token) {
+      navigate('/top-tracks');
+    }
+  }, [myStore, navigate]);
+
   return (
     <Main>
       <div className="hero">
@@ -29,7 +34,7 @@ const generateLink = ()=> {
       </div>
     </Main>
   );
-}
+};
 
 export default Landing;
 

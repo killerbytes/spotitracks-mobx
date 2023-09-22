@@ -1,5 +1,5 @@
 import axios from 'axios';
-import stores from './stores';
+import stores from '../stores';
 const headers = () => {
   const token = JSON.parse(localStorage.getItem(`${process.env.REACT_APP_APP_NAME}_APP`)) || {};
 
@@ -40,6 +40,7 @@ axios.interceptors.response.use(
 
           default:
             sessionStorage.setItem('SPOTITRACKS_REDIR', window.location.pathname);
+            localStorage.removeItem('SPOTITRACKS_APP');
             window.location = '/';
             break;
         }
