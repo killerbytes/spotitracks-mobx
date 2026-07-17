@@ -13,6 +13,32 @@ const headers = () => {
 const responseParser = (res) => res.data;
 const errorParser = (res) => res.response.data;
 
+let isRefreshing = false;
+let failedQueue = [];
+
+const processQueue = (error, token = null) => {
+  failedQueue.forEach((prom) => {
+    if (error) {
+      prom.reject(error);
+    } else {
+      prom.resolve(token);
+    }
+  });
+
+  failedQueue = [];
+};
+
+const setAuthHeader = (config, token) => {
+  config.headers = config.headers || {};
+  if (config.headers.set) {
+    config.headers.set('Authorization', `Bearer ${token}`);
+  } else {
+    delete config.headers.Authorization;
+    delete config.headers.authorization;
+    config.headers['Authorization'] = `Bearer ${token}`;
+  }
+};
+
 axios.interceptors.response.use(
   function (config) {
     return config;
@@ -21,36 +47,57 @@ axios.interceptors.response.use(
     if (error.message === 'Network Error') {
       return Promise.reject({ response: { data: { error } } });
     }
-    const {
-      response: {
-        status,
-        data: {
-          error: { message },
-        },
-      },
-    } = error;
-    switch (status) {
-      case 401:
-        switch (message) {
-          case 'The access token expired':
-            return stores.myStore.refreshToken().then((res) => {
-              error.config.headers['Authorization'] = `Bearer ${res.access_token}`;
-              return axios.request(error.config);
-            });
 
-          default:
-            sessionStorage.setItem('SPOTITRACKS_REDIR', window.location.pathname);
-            localStorage.removeItem('SPOTITRACKS_APP');
-            window.location = '/';
-            break;
-        }
-
-        break;
-      // case 404:
-      //   window.location = '/404'
-      default:
-        break;
+    if (!error.response) {
+      return Promise.reject(error);
     }
+
+    const { status, data } = error.response;
+
+    const message = data && data.error ? data.error.message : null;
+
+    const originalRequest = error.config;
+    if (!originalRequest) {
+      return Promise.reject(error);
+    }
+
+    const isAuthRequest =
+      originalRequest.url && (originalRequest.url.includes('/refresh') || originalRequest.url.includes('/token'));
+
+    if (status === 401 && !isAuthRequest) {
+      if (isRefreshing) {
+        return new Promise((resolve, reject) => {
+          failedQueue.push({ resolve, reject });
+        })
+          .then((token) => {
+            setAuthHeader(originalRequest, token);
+            return axios.request(originalRequest);
+          })
+          .catch((err) => {
+            return Promise.reject(err);
+          });
+      }
+
+      isRefreshing = true;
+
+      return new Promise((resolve, reject) => {
+        stores.authStore
+          .refreshToken()
+          .then((res) => {
+            setAuthHeader(originalRequest, res.access_token);
+            processQueue(null, res.access_token);
+            resolve(axios.request(originalRequest));
+          })
+          .catch((err) => {
+            processQueue(err, null);
+            reject(err);
+          })
+          .finally(() => {
+            isRefreshing = false;
+          });
+      });
+    }
+
     return Promise.reject(error);
   }
 );

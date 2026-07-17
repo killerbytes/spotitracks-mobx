@@ -13,7 +13,7 @@ class MyPlaylists extends React.Component {
     }
   };
   handleSubmit = () => {
-    const { playlistStore, myStore } = this.props;
+    const { playlistStore, authStore } = this.props;
     let tracks = [];
     let req = [];
     this.selected.forEach((playlist) => {
@@ -25,7 +25,7 @@ class MyPlaylists extends React.Component {
         tracks = [...tracks, ...item];
       });
       playlistStore.createPlaylistAddTracks(
-        myStore.me.id,
+        authStore.me.id,
         'merge',
         tracks.map((item) => item.track)
       );

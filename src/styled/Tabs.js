@@ -13,8 +13,9 @@ export default styled.div`
     padding-top: 1rem;
     padding-bottom: 1rem;
   }
-  button {
+  nav a {
     background: none;
+    text-decoration: none;
     border: none;
     color: inherit;
     outline: none;

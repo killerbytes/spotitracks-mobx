@@ -14,14 +14,6 @@ const App = () => {
   return (
     <Routes>
       <Route path="/" element={<SidebarLayout />}>
-        {/* 
-    // 
-    <AuthenticatedRoute path="/charts" component={Charts} />
-   */}
-        {/* 
-
-  //  */}
-
         <Route path="/playlists">
           <Route
             index

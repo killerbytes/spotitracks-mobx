@@ -19,7 +19,7 @@ function getInitialValues() {
 }
 
 const Tracks = ({ items: _items, onSubmit }) => {
-  const { playlistStore, myStore } = useStore();
+  const { playlistStore, authStore } = useStore();
 
   const [hasDuplicates, setHasDuplicates] = useState(false);
   const [formValues, setFormValues] = useState(getInitialValues());
@@ -120,7 +120,7 @@ const Tracks = ({ items: _items, onSubmit }) => {
 
     playlistStore
       .createPlaylistAddTracks(
-        myStore.me.id,
+        authStore.me.id,
         formValues['name'],
         tracks.map((item) => item.track)
       )
@@ -167,6 +167,7 @@ const Tracks = ({ items: _items, onSubmit }) => {
             return (
               <TrackItem
                 key={key}
+                item={item.track}
                 name={name}
                 artists={artists}
                 className={dupes.indexOf(item) !== -1 ? 'is-dupe' : ''}

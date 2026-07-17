@@ -5,21 +5,21 @@ import { useStore } from 'stores';
 import styled from 'styled-components';
 
 const UserBar = () => {
-  const { myStore } = useStore();
+  const { authStore } = useStore();
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    myStore.removeToken();
+    authStore.removeToken();
 
     navigate('/');
   };
 
   const Avatar = () => {
-    let img = myStore.me.images.length > 0 ? myStore.me.images[0] : undefined;
+    let img = authStore.me.images.length > 0 ? authStore.me.images[0] : undefined;
     if (img) {
       return <img src={img.url} alt="" />;
     }
-    return <img src={`https://ui-avatars.com/api/?name=${myStore.me.display_name}`} alt="" />;
+    return <img src={`https://ui-avatars.com/api/?name=${authStore.me.display_name}`} alt="" />;
   };
 
   return (
@@ -30,7 +30,7 @@ const UserBar = () => {
         </a>
         <Avatar />
         <div>
-          {myStore.me.display_name}
+          {authStore.me.display_name}
 
           <button onClick={handleLogout} label="Sign out">
             <i className="fas fa-sign-out-alt" />

@@ -2,36 +2,43 @@ import { LONG_TERM, MEDIUM_TERM, SHORT_TERM } from 'definitions';
 import React from 'react';
 import Tabs from 'styled/Tabs';
 import TracksTab from './TracksTab';
-import { useStore } from 'stores';
+import { Link, NavLink, useSearchParams } from 'react-router-dom';
 
 const TopTracks = () => {
-  const [tab, setTab] = React.useState(0);
-  const { myStore } = useStore();
+  const [tab, setTab] = React.useState();
+  const [searchParams] = useSearchParams();
 
   React.useEffect(() => {
-    // myStore.getTopTracks();
-  }, [myStore]);
+    const tab = searchParams.get('tab');
+    switch (tab) {
+      case 'medium':
+        setTab(1);
+        break;
+      case 'long':
+        setTab(2);
+        break;
+      default:
+        setTab(0);
+    }
+  }, [searchParams]);
 
-  const handleTabClick = (tab) => {
-    setTab(tab);
-  };
   return (
     <>
       <Tabs>
         <div className="container">
           <nav>
-            <button onClick={() => handleTabClick(0)} className={tab === 0 ? 'active' : ''}>
+            <Link to="/top-tracks" className={tab === 0 ? 'active' : ''}>
               SHORT
               <span className="line" />
-            </button>
-            <button onClick={() => handleTabClick(1)} className={tab === 1 ? 'active' : ''}>
+            </Link>
+            <Link to="/top-tracks?tab=medium" className={tab === 1 ? 'active' : ''}>
               MEDIUM
               <span className="line" />
-            </button>
-            <button onClick={() => handleTabClick(2)} className={tab === 2 ? 'active' : ''}>
+            </Link>
+            <Link to="/top-tracks?tab=long" className={tab === 2 ? 'active' : ''}>
               ALL TIME
               <span className="line" />
-            </button>
+            </Link>
           </nav>
         </div>
       </Tabs>

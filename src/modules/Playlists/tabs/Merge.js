@@ -13,7 +13,7 @@ function getInitialState() {
   };
 }
 const Merge = ({ items, onSubmit }) => {
-  const { commonStore, playlistStore, myStore } = useStore();
+  const { commonStore, playlistStore, authStore } = useStore();
   const [selected, setSelected] = useState([]);
   const [formValues, setFormValues] = useState(getInitialState());
   const [toggle, handleToggle] = useToggle({
@@ -44,7 +44,7 @@ const Merge = ({ items, onSubmit }) => {
       });
       playlistStore
         .createPlaylistAddTracks(
-          myStore.me.id,
+          authStore.me.id,
           formValues['name'],
           tracks.map((item) => item.track)
         )

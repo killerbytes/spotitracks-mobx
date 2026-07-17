@@ -22,7 +22,7 @@ function getInitialValues() {
   };
 }
 const TopTracks = ({ range }) => {
-  const { myStore, playlistStore } = useStore();
+  const { authStore, playlistStore } = useStore();
   const navigate = useNavigate();
 
   const [formValues, setFormValues] = useState(getInitialValues());
@@ -30,9 +30,13 @@ const TopTracks = ({ range }) => {
     playlist: false,
   });
 
+  const getData = React.useCallback(async () => {
+    await playlistStore.getTopTracks(range);
+  }, [playlistStore, range]);
+
   useEffect(() => {
-    myStore.getTopTracks(range);
-  }, [myStore, range]);
+    getData();
+  }, [getData]);
 
   useEffect(() => {
     setFormValues({ name: `Spotitracks ${title[range]}` });
@@ -47,7 +51,7 @@ const TopTracks = ({ range }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     playlistStore
-      .createPlaylistAddTracks(myStore.me.id, formValues['name'], myStore.topTracks[range].items)
+      .createPlaylistAddTracks(authStore.me.id, formValues['name'], playlistStore.topTracks[range].items)
       .then((res) => {
         ReactGA.event({
           category: 'Top Tracks',
@@ -58,8 +62,8 @@ const TopTracks = ({ range }) => {
         navigate(`/playlists/${res.id}`);
       });
   };
-  const mappedPlaylists = myStore.topTracks[range].items.map(({ name, artists }, key) => (
-    <TrackItem key={key} name={name} artists={artists}></TrackItem>
+  const mappedPlaylists = playlistStore.topTracks[range].items.map((item, key) => (
+    <TrackItem key={key} item={item}></TrackItem>
   ));
 
   return (

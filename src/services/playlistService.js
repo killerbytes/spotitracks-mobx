@@ -5,6 +5,35 @@ export default class playlistService {
     this.http = http;
   }
 
+  getPlaylists(offset, limit = 50) {
+    return this.http.get(`${API_URL}/me/playlists`, {
+      limit,
+      offset,
+    });
+  }
+
+  getCurrentPlaying() {
+    return this.http.get(`${API_URL}/me/player/currently-playing`);
+  }
+  nextTrack() {
+    return this.http.post(`${API_URL}/me/player/next`);
+  }
+
+  getTopTracks(time_range, offset) {
+    return this.http.get(`${API_URL}/me/top/tracks`, {
+      limit: 50,
+      time_range,
+      offset,
+    });
+  }
+
+  find() {
+    return this.http.get(`${API_URL}/search`, {
+      type: 'playlist',
+      q: 'name:Hard',
+    });
+  }
+
   addTracksToPlaylist(playlist_id, uris) {
     return this.http.post(`${API_URL}/playlists/${playlist_id}/tracks`, {
       uris,

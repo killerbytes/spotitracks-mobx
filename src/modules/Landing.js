@@ -6,7 +6,7 @@ import { useStore } from 'stores';
 import { useNavigate } from 'react-router-dom';
 
 const Landing = () => {
-  const { myStore } = useStore();
+  const { authStore } = useStore();
   const navigate = useNavigate();
 
   const generateLink = () => {
@@ -15,11 +15,11 @@ const Landing = () => {
   };
 
   useEffect(() => {
-    const token = myStore.getToken();
+    const token = authStore.getToken();
     if (token) {
       navigate('/top-tracks');
     }
-  }, [myStore, navigate]);
+  }, [authStore, navigate]);
 
   return (
     <Main>

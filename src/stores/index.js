@@ -1,5 +1,5 @@
 import CommonStore from './commonStore';
-import MyStore from './myStore';
+import AuthStore from './authStore';
 import PlaylistStore from './playlistStore';
 
 import services from '../services';
@@ -9,10 +9,9 @@ export const StoreContext = createContext();
 
 const stores = {
   commonStore: new CommonStore(services.commonService),
-  myStore: new MyStore(services.myService),
+  authStore: new AuthStore(services.authService),
   playlistStore: new PlaylistStore(services.playlistService),
-}
-
+};
 
 export const useStore = () => useContext(StoreContext);
 

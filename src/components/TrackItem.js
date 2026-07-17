@@ -1,7 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const TrackItem = ({ name, artists = [], position, className, actions, children }) => {
+const TrackItem = ({ item, position, className, actions, children }) => {
+  const { name, artists } = item;
+  const imgUrl = item.album.images[0].url;
+
   return (
     <TrackItemStyled className={className}>
       {position && (
@@ -12,13 +15,17 @@ const TrackItem = ({ name, artists = [], position, className, actions, children 
       {children ? (
         children
       ) : (
-        <div>
-          <div className="track">{name}</div>
-          <div className="artists">
-            {artists
-              .map((artist) => artist.name)
-              .toString()
-              .replace(',', ', ')}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+          <img src={imgUrl} alt={name} width={40} />
+          <div>
+            <div className="track">{name}</div>
+
+            <div className="artists">
+              {artists
+                .map((artist) => artist.name)
+                .toString()
+                .replace(',', ', ')}
+            </div>
           </div>
         </div>
       )}

@@ -1,3 +1,4 @@
+import { LONG_TERM, MEDIUM_TERM, SHORT_TERM } from 'definitions';
 import { action, makeObservable, observable, runInAction } from 'mobx';
 import PromiseThrottle from 'promise-throttle';
 import stores from 'stores';
@@ -7,9 +8,15 @@ class PlaylistStore {
   tracks = { items: [] };
   temp_tracks = { items: [] };
   playlist = { tracks: { items: [] }, images: [] };
+  playlists = { items: [] };
+  topTracks = {};
+  search = [];
 
   constructor(api) {
     this.api = api;
+    this.topTracks[SHORT_TERM] = { items: [] };
+    this.topTracks[MEDIUM_TERM] = { items: [] };
+    this.topTracks[LONG_TERM] = { items: [] };
 
     makeObservable(this, {
       tracks: observable,
@@ -17,8 +24,49 @@ class PlaylistStore {
       setPlaylist: action,
       setTracks: action,
       getPlaylistTracks: action,
+      playlists: observable,
+      getPlaylists: action,
+      topTracks: observable,
     });
   }
+
+  getPlaylists = () => {
+    this.playlists.items = [];
+    this.getAllPlaylists();
+  };
+  getAllPlaylists = (offset) => {
+    stores.commonStore.setLoading(true);
+    this.api.getPlaylists(offset).then((res) => {
+      runInAction(() => {
+        this.playlists.items = [...this.playlists.items, ...res.items];
+      });
+      if (res.offset + res.limit < res.total) {
+        this.getAllPlaylists(res.offset + res.limit);
+      } else {
+        stores.commonStore.setLoading(false);
+      }
+    });
+  };
+  getCurrentPlaying = () => {
+    return this.api.getCurrentPlaying();
+  };
+  nextTrack = () => {
+    return this.api.nextTrack();
+  };
+
+  getTopTracks = async (time_range = MEDIUM_TERM) => {
+    stores.commonStore.setLoading(true);
+    try {
+      const res = await this.api.getTopTracks(time_range);
+      runInAction(() => {
+        this.topTracks[time_range] = res;
+      });
+
+      stores.commonStore.setLoading(false);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   createPlaylistAddTracks = async (user_id, name, tracks) => {
     return new Promise((resolve) => {

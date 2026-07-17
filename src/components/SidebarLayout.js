@@ -11,11 +11,11 @@ import { useStore } from 'stores';
 const SidebarLayout = ({ children }) => {
   const [isMenu, setIsMenu] = React.useState(false);
   const location = useLocation();
-  const { commonStore, myStore } = useStore();
+  const { commonStore, authStore } = useStore();
 
   React.useEffect(() => {
-    myStore.getUser();
-  }, [myStore]);
+    authStore.getUser();
+  }, [authStore]);
 
   React.useEffect(() => {
     setIsMenu(false);

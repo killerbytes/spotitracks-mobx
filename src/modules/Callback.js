@@ -5,24 +5,19 @@ import { useStore } from 'stores';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 const Callback = () => {
-  const { myStore } = useStore();
+  const { authStore } = useStore();
   const location = useLocation();
   const navigate = useNavigate();
   const { code } = qs.parse(location.search);
   const initialized = useRef(false);
 
   const getData = useCallback(() => {
-    console.log(myStore);
-
-    myStore.login(code).then((res) => {
-      console.log(res.data);
-
+    authStore.login(code).then((res) => {
       if (res.data.error === 'invalid_grant') {
         navigate('/');
       } else if (res.data.access_token) {
         const redir = sessionStorage.getItem('SPOTITRACKS_REDIR');
-        myStore.setToken(res.data);
-        console.log(redir, 'navigate');
+        authStore.setToken(res.data);
 
         if (redir) {
           navigate(redir);
@@ -32,7 +27,7 @@ const Callback = () => {
         }
       }
     });
-  }, [code, myStore, navigate]);
+  }, [code, authStore, navigate]);
 
   useEffect(() => {
     if (!initialized.current) {
