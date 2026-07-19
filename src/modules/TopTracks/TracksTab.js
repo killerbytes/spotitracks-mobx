@@ -1,5 +1,6 @@
 import { observer } from 'mobx-react';
 import BottomGradient from 'styled/BottomGradient';
+import Button from 'styled/Button';
 import Modal from 'components/Modal';
 import React, { useEffect } from 'react';
 import ReactGA from 'react-ga';
@@ -74,9 +75,9 @@ const TopTracks = ({ range }) => {
       <BottomGradient>
         <div className="container">
           {!!mappedPlaylists.length && (
-            <button className="btn btn-fab" onClick={() => handleToggle({ playlist: !toggle.playlist })}>
+            <Button className="btn-fab" onClick={() => handleToggle({ playlist: !toggle.playlist })}>
               <i className="fas fa-check" />
-            </button>
+            </Button>
           )}
         </div>
       </BottomGradient>
@@ -92,12 +93,12 @@ const TopTracks = ({ range }) => {
                 </div>
               </form>
               <div className="form-footer">
-                <button className="btn btn-default" onClick={() => handleToggle({ playlist: !toggle.playlist })}>
+                <Button className="btn-default" onClick={() => handleToggle({ playlist: !toggle.playlist })}>
                   Cancel
-                </button>
-                <button className="btn btn-primary" onClick={handleSubmit} disabled={!formValues['name'].length}>
+                </Button>
+                <Button className="btn-primary" onClick={handleSubmit} disabled={!formValues['name'].length}>
                   Submit
-                </button>
+                </Button>
               </div>
             </React.Fragment>
           )}

@@ -3,23 +3,24 @@ import styled from 'styled-components';
 export default styled.ul`
   margin: 0;
   padding: 0;
-  padding-bottom: 2rem;
+  padding-bottom: ${(props) => props.theme.spacing.lg};
   list-style-type: none;
   li {
-    padding: 0.5rem 0;
+    padding: ${(props) => props.theme.spacing.sm} 0;
     display: flex;
     a {
       color: inherit;
       text-decoration: none;
       small {
-        font-size: 11px;
+        opacity: 0.75;
+        font-size: ${(props) => props.theme.fontSizes.xs};
       }
     }
     span:last-child {
       margin-left: auto;
     }
     small {
-      margin-left: 0.3rem;
+      margin-left: ${(props) => props.theme.spacing.xs};
     }
   }
 `;

@@ -4,6 +4,29 @@ import { useLocation } from 'react-router-dom';
 import { useStore } from 'stores';
 import styled from 'styled-components';
 
+const Main = ({ isMenu, children }) => {
+  const { commonStore } = useStore();
+  const [isColor, setIsColor] = useState(false);
+  const location = useLocation();
+
+  useEffect(() => {
+    const re = new RegExp('playlists/');
+    if (re.test(location.pathname)) {
+      setIsColor(true);
+    } else {
+      setIsColor(false);
+    }
+  }, [location.pathname]);
+
+  return (
+    <Layout $isMenu={isMenu} $isColor={isColor} $colors={commonStore.imageColors}>
+      {children}
+    </Layout>
+  );
+};
+
+export default observer(Main);
+
 const Layout = styled.main`
   transition: all 0.3s ease 0s;
   transform: ${(props) => (props.$isMenu ? `translateX(80%)` : `unset`)};
@@ -39,25 +62,3 @@ const Layout = styled.main`
     }
   }
 `;
-const Main = ({ isMenu, children }) => {
-  const { commonStore } = useStore();
-  const [isColor, setIsColor] = useState(false);
-  const location = useLocation();
-
-  useEffect(() => {
-    const re = new RegExp('playlists/');
-    if (re.test(location.pathname)) {
-      setIsColor(true);
-    } else {
-      setIsColor(false);
-    }
-  }, [location.pathname]);
-
-  return (
-    <Layout $isMenu={isMenu} $isColor={isColor} $colors={commonStore.imageColors}>
-      {children}
-    </Layout>
-  );
-};
-
-export default observer(Main);

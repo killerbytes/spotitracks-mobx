@@ -15,17 +15,14 @@ const TrackItem = ({ item, position, className, actions, children }) => {
       {children ? (
         children
       ) : (
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+        <div className="item-content">
           <img src={imgUrl} alt={name} width={40} />
-          <div>
+          <div className="track-info">
             <div className="track">{name}</div>
-
-            <div className="artists">
-              {artists
-                .map((artist) => artist.name)
-                .toString()
-                .replace(',', ', ')}
-            </div>
+            {artists
+              .map((artist) => artist.name)
+              .toString()
+              .replace(',', ', ')}
           </div>
         </div>
       )}
@@ -35,8 +32,15 @@ const TrackItem = ({ item, position, className, actions, children }) => {
 };
 
 const TrackItemStyled = styled.li`
-  padding: 0.5rem 0;
+  padding: 0.5rem;
   display: flex;
+  border-radius: ${(props) => props.theme.borderRadius.md};
+  background: #20202080;
+  .item-content {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
   &.header {
     font-size: 1.2em;
   }
@@ -47,12 +51,15 @@ const TrackItemStyled = styled.li`
       color: ${(props) => props.theme.darkBg2};
     }
   }
+  .track-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    font-size: ${(props) => props.theme.fontSizes.sm};
+  }
   .track {
     color: ${(props) => props.theme.lightBg};
-    margin-bottom: 0.3rem;
-  }
-  .artists {
-    font-size: 0.8em;
+    font-size: ${(props) => props.theme.fontSizes.base};
   }
   button {
     outline: none;

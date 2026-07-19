@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import BottomGradient from '../../../styled/BottomGradient';
+import BottomGradient from 'styled/BottomGradient';
 import PlaylistStyle from 'styled/Playlist';
 import React from 'react';
 

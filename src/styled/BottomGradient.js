@@ -1,8 +1,8 @@
 import styled from 'styled-components'
 
 export default styled.div`
-  background: rgb(255, 255, 255);
-  background: linear-gradient(180deg, #fff0 15%, #2828287f 40%, #181818 90%);
+  background: ${(props) => props.theme.white};
+  background: linear-gradient(180deg, #fff0 15%, #2828287f 40%, ${(props) => props.theme.darkBg} 90%);
 
   position: fixed;
   bottom: 0;

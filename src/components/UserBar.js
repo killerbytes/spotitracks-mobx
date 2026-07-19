@@ -46,7 +46,7 @@ export default observer(UserBar);
 const Container = styled.div`
   color: ${(props) => props.theme.lightBg2};
   position: absolute;
-  bottom: 1rem;
+  bottom: ${(props) => props.theme.spacing.md};
   @media (min-width: 576px) {
     position: static;
   }
@@ -58,8 +58,8 @@ const Container = styled.div`
   img {
     width: 30px;
     height: 30px;
-    border-radius: 100px;
-    margin-right: 0.5rem;
+    border-radius: ${(props) => props.theme.borderRadius.circle};
+    margin-right: ${(props) => props.theme.spacing.sm};
   }
   .user {
     position: relative;
@@ -67,17 +67,17 @@ const Container = styled.div`
     align-items: center;
     text-transform: uppercase;
     .fa {
-      margin-left: 1rem;
+      margin-left: ${(props) => props.theme.spacing.md};
     }
     button {
       cursor: pointer;
       color: inherit;
-      margin-left: 0.5rem;
+      margin-left: ${(props) => props.theme.spacing.sm};
     }
     .social-fb {
-      font-size: 20px;
-      color: #4267b2;
-      margin-right: 1rem;
+      font-size: 1.5rem;
+      color: ${(props) => props.theme.facebook};
+      margin-right: ${(props) => props.theme.spacing.md};
     }
   }
 `;

@@ -1,11 +1,11 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export default styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   &.fullscreen {
-    background: rgba(255, 255, 255, 0.3);
+    background: ${(props) => props.theme.overlayLight};
     position: fixed;
     left: 0;
     top: 0;
@@ -13,18 +13,18 @@ export default styled.div`
     height: 100%;
     z-index: 9999;
     span {
-      background: rgba(0, 0, 0, 0.5);
-      border-radius: 0.5rem;
+      background: ${(props) => props.theme.overlay};
+      border-radius: ${(props) => props.theme.borderRadius.md};
       .fa-spinner {
-        color: #fff;
+        color: ${(props) => props.theme.white};
       }
     }
   }
   span {
-    padding: 0.5rem;
+    padding: ${(props) => props.theme.spacing.sm};
   }
   .fa-spinner {
-    color: rgba(0, 0, 0, 0.5);
+    color: ${(props) => props.theme.overlay};
     font-size: 2rem;
   }
-`
+`;

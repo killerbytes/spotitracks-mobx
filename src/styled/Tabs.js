@@ -2,16 +2,16 @@ import styled from 'styled-components';
 
 export default styled.div`
   background-color: ${(props) => props.theme.darkBg};
-  box-shadow: 5px 0 5px #000;
-  margin-bottom: 1rem;
+  box-shadow: 5px 0 5px ${(props) => props.theme.black};
+  margin-bottom: ${(props) => props.theme.spacing.md};
   position: sticky;
   top: 50px;
   width: 100%;
   nav {
     display: flex;
     justify-content: space-evenly;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
+    padding-top: ${(props) => props.theme.spacing.md};
+    padding-bottom: ${(props) => props.theme.spacing.md};
   }
   nav a {
     background: none;
@@ -27,11 +27,11 @@ export default styled.div`
     align-items: center;
     text-transform: uppercase;
     &.active {
-      color: #fff;
+      color: ${(props) => props.theme.white};
       font-weight: 500;
       &:after {
         content: '';
-        width: 2rem;
+        width: ${(props) => props.theme.spacing.lg};
         margin-top: 5px;
         border-bottom: 2px solid ${(props) => props.theme.primary};
       }

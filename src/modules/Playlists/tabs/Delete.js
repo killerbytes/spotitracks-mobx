@@ -1,4 +1,6 @@
-import BottomGradient from '../../../styled/BottomGradient';
+import BottomGradient from 'styled/BottomGradient';
+
+import Button from 'styled/Button';
 import CheckBox from 'components/CheckBox';
 import Modal from 'components/Modal';
 import PlaylistStyle from 'styled/Playlist';
@@ -6,6 +8,7 @@ import React, { useState } from 'react';
 import ReactGA from 'react-ga';
 import { useStore } from 'stores';
 import useToggle from 'hooks/useToggle';
+import { observer } from 'mobx-react';
 
 const Merge = ({ items, onSubmit }) => {
   const { commonStore, playlistStore } = useStore();
@@ -57,9 +60,9 @@ const Merge = ({ items, onSubmit }) => {
       <BottomGradient>
         <div className="container">
           {selected.length > 0 && (
-            <button className="btn btn-fab" onClick={() => handleToggle({ playlist: !toggle.playlist })}>
+            <Button className="btn-fab" onClick={() => handleToggle({ playlist: !toggle.playlist })}>
               <i className="fas fa-check" />
-            </button>
+            </Button>
           )}
         </div>
       </BottomGradient>
@@ -77,12 +80,12 @@ const Merge = ({ items, onSubmit }) => {
                 </small>
               </p>
               <div className="form-footer">
-                <button className="btn btn-default" onClick={() => handleToggle({ playlist: !toggle.playlist })}>
+                <Button className="btn-default" onClick={() => handleToggle({ playlist: !toggle.playlist })}>
                   Cancel
-                </button>
-                <button className="btn btn-primary" onClick={handleSubmit}>
+                </Button>
+                <Button className="btn-primary" onClick={handleSubmit}>
                   Submit
-                </button>
+                </Button>
               </div>
             </>
           )}
@@ -92,4 +95,4 @@ const Merge = ({ items, onSubmit }) => {
   );
 };
 
-export default Merge;
+export default observer(Merge);

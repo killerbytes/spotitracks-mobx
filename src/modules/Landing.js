@@ -1,4 +1,6 @@
 import logo from 'assets/logo.svg';
+import Button from 'styled/Button';
+import { observer } from 'mobx-react';
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import video from 'assets/video.mp4';
@@ -28,15 +30,15 @@ const Landing = () => {
           <source src={video} type="video/mp4" />
         </video>
         <img alt="logo" src={logo} />
-        <a href={generateLink()} className="btn btn-primary">
+        <Button as="a" href={generateLink()} className="btn-primary">
           <i className="fab fa-spotify" /> Connect with Spotify
-        </a>
+        </Button>
       </div>
     </Main>
   );
 };
 
-export default Landing;
+export default observer(Landing);
 
 const Main = styled.div`
   &:before {
@@ -62,18 +64,17 @@ const Main = styled.div`
     height: 100vh;
     position: relative;
     flex-direction: column;
-    padding: 0 1rem;
+    padding: 0 ${(props) => props.theme.spacing.md};
     a {
       &.btn {
         display: inline-flex;
         align-items: center;
-        font-size: 15px;
-        padding: 0.5rem 1rem;
-        box-shadow: 0 0 5px #000;
+        padding: ${(props) => props.theme.spacing.sm} ${(props) => props.theme.spacing.md};
+        box-shadow: 0 0 5px ${(props) => props.theme.black};
       }
       i {
         font-size: 1.5rem;
-        margin-right: 0.5rem;
+        margin-right: ${(props) => props.theme.spacing.sm};
         margin-top: -2px;
       }
     }
@@ -81,7 +82,7 @@ const Main = styled.div`
       min-width: 240px;
       max-width: 400px;
       width: 80%;
-      margin-bottom: 1rem;
+      margin-bottom: ${(props) => props.theme.spacing.md};
     }
   }
 `;

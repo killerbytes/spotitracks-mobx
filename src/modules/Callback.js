@@ -1,4 +1,5 @@
 import Loading from 'components/Loading';
+import { observer } from 'mobx-react';
 import React, { useCallback, useEffect, useRef } from 'react';
 import qs from 'query-string';
 import { useStore } from 'stores';
@@ -39,4 +40,4 @@ const Callback = () => {
   return <Loading />;
 };
 
-export default Callback;
+export default observer(Callback);

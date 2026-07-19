@@ -1,5 +1,6 @@
 import { observer } from 'mobx-react';
 import BottomGradient from '../../styled/BottomGradient';
+import Button from 'styled/Button';
 import CoverImage from 'components/CoverImage';
 import Modal from 'components/Modal';
 import Page from 'styled/Page';
@@ -149,12 +150,16 @@ const Tracks = ({ items: _items, onSubmit }) => {
           <div className="controls">
             <label className="btn-toggle" htmlFor="shuffle">
               <input id="shuffle" type="checkbox" onChange={handleShuffle} />
-              <div className="btn-bg btn btn-toggle">Shuffle</div>
+              <Button as="div" className="btn-bg btn-toggle">
+                Shuffle
+              </Button>
             </label>
             {hasDuplicates && (
               <label className="btn-toggle" htmlFor="dedupe">
                 <input id="dedupe" type="checkbox" onChange={handleDuplicates} />
-                <div className="btn-bg btn btn-toggle">Deduplicate</div>
+                <Button as="div" className="btn-bg btn-toggle">
+                  Deduplicate
+                </Button>
               </label>
             )}
           </div>
@@ -179,9 +184,9 @@ const Tracks = ({ items: _items, onSubmit }) => {
       <BottomGradient>
         <div className="container">
           {(formValues['shuffle'] || formValues['dedupe']) && (
-            <button className="btn btn-fab" onClick={handleSave}>
+            <Button className="btn-fab" onClick={handleSave}>
               <i className="fas fa-check" />
-            </button>
+            </Button>
           )}
         </div>
       </BottomGradient>
@@ -196,12 +201,12 @@ const Tracks = ({ items: _items, onSubmit }) => {
                 </div>
               </form>
               <div className="form-footer">
-                <button className="btn btn-default" onClick={() => toggleModal('playlist')}>
+                <Button className="btn-default" onClick={() => toggleModal('playlist')}>
                   Cancel
-                </button>
-                <button className="btn btn-primary" onClick={handleSubmit}>
+                </Button>
+                <Button className="btn-primary" onClick={handleSubmit}>
                   Submit
-                </button>
+                </Button>
               </div>
             </React.Fragment>
           )}

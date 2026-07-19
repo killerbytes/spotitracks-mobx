@@ -1,4 +1,5 @@
 import { Navigate, useLocation } from 'react-router-dom';
+import { observer } from 'mobx-react';
 import { useStore } from 'stores';
 
 const RequireAuth = ({ children }) => {
@@ -16,4 +17,4 @@ const RequireAuth = ({ children }) => {
   return children;
 };
 
-export default RequireAuth;
+export default observer(RequireAuth);

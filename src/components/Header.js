@@ -1,9 +1,30 @@
 import { observer } from 'mobx-react';
+import Button from 'styled/Button';
 import logo from 'assets/logo.svg';
 import NavLinks from './NavLinks';
 import React from 'react';
 import styled from 'styled-components';
 import UserBar from './UserBar';
+
+class Header extends React.Component {
+  render() {
+    const { onToggle } = this.props;
+    return (
+      <Container>
+        <div className="container">
+          <Button className="btn-clear btn-menu" onClick={onToggle}>
+            <i className="fas fa-bars" />
+          </Button>
+          <img alt="logo" className="logo" src={logo} />
+          <NavLinks />
+          <UserBar {...this.props} />
+        </div>
+      </Container>
+    );
+  }
+}
+
+export default observer(Header);
 
 const Container = styled.header`
   z-index: 1;
@@ -11,8 +32,8 @@ const Container = styled.header`
   height: 50px;
   top: 0;
   position: sticky;
-  padding: 0.5rem 0;
-  background: linear-gradient(180deg, #484848 0%, #181818 80.01%);
+  padding: ${(props) => props.theme.spacing.sm} 0;
+  background: linear-gradient(180deg, #484848 0%, ${(props) => props.theme.darkBg} 80.01%);
   .header {
     position: relative;
     img.logo {
@@ -20,7 +41,7 @@ const Container = styled.header`
     }
   }
   .btn-menu {
-    margin-right: 1rem;
+    margin-right: ${(props) => props.theme.spacing.md};
     font-size: 1.8rem;
   }
   .container {
@@ -30,11 +51,9 @@ const Container = styled.header`
   .menu,
   .user-bar {
     display: none;
-    font-size: 16px;
   }
   .user-bar {
-    margin-left: 1rem;
-    font-size: 12px;
+    margin-left: ${(props) => props.theme.spacing.md};
   }
   @media (min-width: 768px) {
     .btn-menu {
@@ -46,22 +65,3 @@ const Container = styled.header`
     }
   }
 `;
-class Header extends React.Component {
-  render() {
-    const { onToggle } = this.props;
-    return (
-      <Container>
-        <div className="container">
-          <button className="btn btn-clear btn-menu" onClick={onToggle}>
-            <i className="fas fa-bars" />
-          </button>
-          <img alt="logo" className="logo" src={logo} />
-          <NavLinks />
-          <UserBar {...this.props} />
-        </div>
-      </Container>
-    );
-  }
-}
-
-export default observer(Header);

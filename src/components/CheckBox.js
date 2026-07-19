@@ -1,5 +1,18 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from 'react';
+import styled from 'styled-components';
+
+export default class CheckBox extends React.Component {
+  render() {
+    const { children, ...rest } = this.props;
+    return (
+      <CheckBoxStyle>
+        <input type="checkbox" {...rest} />
+        <span />
+        {children}
+      </CheckBoxStyle>
+    );
+  }
+}
 
 const CheckBoxStyle = styled.label`
   cursor: pointer;
@@ -13,24 +26,12 @@ const CheckBoxStyle = styled.label`
     width: 13px;
     min-width: 13px;
     height: 13px;
-    background: ${props => props.theme.darkBg2};
-    border-radius: 100%;
+    background: ${(props) => props.theme.darkBg2};
+    border-radius: ${(props) => props.theme.borderRadius.circle};
     margin-right: 0.5em;
-    border: 1px solid ${props => props.theme.lightBg2};
+    border: 1px solid ${(props) => props.theme.lightBg2};
   }
   input[type='checkbox']:checked ~ span {
-    background: ${props => props.theme.primary};
+    background: ${(props) => props.theme.primary};
   }
-`
-export default class CheckBox extends React.Component {
-  render() {
-    const { children, ...rest } = this.props
-    return (
-      <CheckBoxStyle>
-        <input type="checkbox" {...rest} />
-        <span />
-        {children}
-      </CheckBoxStyle>
-    )
-  }
-}
+`;
