@@ -52,9 +52,7 @@ axios.interceptors.response.use(
       return Promise.reject(error);
     }
 
-    const { status, data } = error.response;
-
-    const message = data && data.error ? data.error.message : null;
+    const { status } = error.response;
 
     const originalRequest = error.config;
     if (!originalRequest) {

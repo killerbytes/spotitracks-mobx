@@ -2,7 +2,7 @@ import { LONG_TERM, MEDIUM_TERM, SHORT_TERM } from 'definitions';
 import React from 'react';
 import Tabs from 'styled/Tabs';
 import TracksTab from './TracksTab';
-import { Link, NavLink, useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 
 const TopTracks = () => {
   const [tab, setTab] = React.useState();
