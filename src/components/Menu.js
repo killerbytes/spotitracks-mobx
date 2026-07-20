@@ -18,7 +18,7 @@ export default class Menu extends React.Component {
 }
 
 const MenuContainer = styled.div`
-  background: ${(props) => props.theme.darkBg2};
+  background: ${(props) => props.theme.background};
   opacity: ${(props) => (props.$isMenu ? 1 : 0)};
   padding: ${(props) => props.theme.spacing.md} 0;
   position: absolute;
@@ -26,7 +26,7 @@ const MenuContainer = styled.div`
   height: 100vh;
 
   nav a {
-    color: ${(props) => props.theme.lightBg};
+    color: ${(props) => props.theme.foreground};
   }
   @media (min-width: 576px) {
     display: none;

@@ -44,7 +44,7 @@ const UserBar = () => {
 export default observer(UserBar);
 
 const Container = styled.div`
-  color: ${(props) => props.theme.lightBg2};
+  color: ${(props) => props.theme.foregroundMuted};
   position: absolute;
   bottom: ${(props) => props.theme.spacing.md};
   @media (min-width: 576px) {

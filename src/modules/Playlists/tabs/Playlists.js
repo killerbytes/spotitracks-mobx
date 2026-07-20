@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import BottomGradient from 'styled/BottomGradient';
-import PlaylistStyle from 'styled/Playlist';
 import React from 'react';
+import { List, ListItem, ListItemContent, ListItemDescription, ListItemImage, ListItemText } from 'components/List';
 
 class MyPlaylists extends React.Component {
   selected = [];
@@ -34,18 +34,20 @@ class MyPlaylists extends React.Component {
   render() {
     const { items } = this.props;
 
-    const mappedPlaylists = items.map((item, key) => (
-      <li key={key}>
-        <Link to={`${item.id}`}>
-          {key + 1} {item.name} <small>({item.tracks.total})</small>
-        </Link>
-      </li>
-    ));
-
     return (
       <React.Fragment>
         <div className="container">
-          <PlaylistStyle>{mappedPlaylists}</PlaylistStyle>
+          <List>
+            {items.map((item, key) => (
+              <ListItem key={key}>
+                {item.images[0].url && <ListItemImage src={item.images[0].url} alt={item.name} />}
+                <ListItemContent to={`${item.id}`}>
+                  <ListItemText>{item.name}</ListItemText>
+                  <ListItemDescription>{item.tracks.total} tracks</ListItemDescription>
+                </ListItemContent>
+              </ListItem>
+            ))}
+          </List>
         </div>
         <BottomGradient />
       </React.Fragment>

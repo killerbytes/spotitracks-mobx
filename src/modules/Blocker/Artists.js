@@ -1,12 +1,10 @@
 import React from 'react';
-import TrackItem from 'components/TrackItem';
-import TracksList from 'styled/TracksList';
 
 const Artists = ({ items, onRemove }) => {
   const mappedTracks = items.map((item, key) => {
     const { name, artists } = item;
     return (
-      <TrackItem
+      <div
         key={key}
         name={name}
         artists={artists}
@@ -19,7 +17,7 @@ const Artists = ({ items, onRemove }) => {
       />
     );
   });
-  return <TracksList>{mappedTracks}</TracksList>;
+  return <div>{mappedTracks}</div>;
 };
 
 export default Artists;

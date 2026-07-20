@@ -26,10 +26,9 @@ const CheckBoxStyle = styled.label`
     width: 13px;
     min-width: 13px;
     height: 13px;
-    background: ${(props) => props.theme.darkBg2};
+    background: ${(props) => props.theme.backgroundElevated};
     border-radius: ${(props) => props.theme.borderRadius.circle};
     margin-right: 0.5em;
-    border: 1px solid ${(props) => props.theme.lightBg2};
   }
   input[type='checkbox']:checked ~ span {
     background: ${(props) => props.theme.primary};

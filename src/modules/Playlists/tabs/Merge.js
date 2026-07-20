@@ -4,11 +4,11 @@ import Button from 'styled/Button';
 import { observer } from 'mobx-react';
 import CheckBox from 'components/CheckBox';
 import Modal from 'components/Modal';
-import PlaylistStyle from 'styled/Playlist';
 import React, { useState } from 'react';
 import ReactGA from 'react-ga';
 import { useStore } from 'stores';
 import useToggle from 'hooks/useToggle';
+import { List, ListItem, ListItemContent, ListItemDescription, ListItemText } from 'components/List';
 
 function getInitialState() {
   return {
@@ -66,22 +66,26 @@ const Merge = ({ items, onSubmit }) => {
     });
   };
 
-  const mappedPlaylists = items.map((item, key) => (
-    <li key={key}>
-      <CheckBox checked={selected.indexOf(item) > -1} onChange={() => handleSelected(item)}>
-        {item.name} <small>({item.tracks.total})</small>
-      </CheckBox>
-    </li>
-  ));
   return (
     <React.Fragment>
       <div className="container">
-        <PlaylistStyle>{mappedPlaylists}</PlaylistStyle>
+        <List>
+          {items.map((item, key) => (
+            <ListItem key={key}>
+              <CheckBox checked={selected.indexOf(item) > -1} onChange={() => handleSelected(item)}>
+                <ListItemContent>
+                  <ListItemText>{item.name}</ListItemText>
+                  <ListItemDescription>{item.tracks.total} tracks</ListItemDescription>
+                </ListItemContent>
+              </CheckBox>
+            </ListItem>
+          ))}
+        </List>
       </div>
       <BottomGradient>
         <div className="container">
           {selected.length > 1 && (
-            <Button className="btn-fab" onClick={() => handleToggle({ playlist: !toggle.playlist })}>
+            <Button className="btn-primary btn-fab" onClick={() => handleToggle({ playlist: !toggle.playlist })}>
               <i className="fas fa-check" />
             </Button>
           )}

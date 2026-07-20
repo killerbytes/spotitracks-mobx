@@ -70,7 +70,7 @@ const Main = styled.div`
         display: inline-flex;
         align-items: center;
         padding: ${(props) => props.theme.spacing.sm} ${(props) => props.theme.spacing.md};
-        box-shadow: 0 0 5px ${(props) => props.theme.black};
+        box-shadow: 0 0 5px ${(props) => props.theme.background};
       }
       i {
         font-size: 1.5rem;

@@ -3,12 +3,12 @@ import BottomGradient from 'styled/BottomGradient';
 import Button from 'styled/Button';
 import CheckBox from 'components/CheckBox';
 import Modal from 'components/Modal';
-import PlaylistStyle from 'styled/Playlist';
 import React, { useState } from 'react';
 import ReactGA from 'react-ga';
 import { useStore } from 'stores';
 import useToggle from 'hooks/useToggle';
 import { observer } from 'mobx-react';
+import { List, ListItem, ListItemContent, ListItemDescription, ListItemText } from 'components/List';
 
 const Merge = ({ items, onSubmit }) => {
   const { commonStore, playlistStore } = useStore();
@@ -45,22 +45,28 @@ const Merge = ({ items, onSubmit }) => {
     });
   };
 
-  const mappedPlaylists = items.map((item, key) => (
-    <li key={key}>
-      <CheckBox checked={selected.indexOf(item) > -1} onChange={() => handleSelect(item)}>
-        {item.name} <small>({item.tracks.total})</small>
-      </CheckBox>
-    </li>
-  ));
   return (
     <>
       <div className="container">
-        <PlaylistStyle>{mappedPlaylists}</PlaylistStyle>
+        <h1>Delete Playlists</h1>
+
+        <List>
+          {items.map((item, key) => (
+            <ListItem key={key}>
+              <CheckBox checked={selected.indexOf(item) > -1} onChange={() => handleSelect(item)}>
+                <ListItemContent>
+                  <ListItemText>{item.name}</ListItemText>
+                  <ListItemDescription>{item.tracks.total} tracks</ListItemDescription>
+                </ListItemContent>
+              </CheckBox>
+            </ListItem>
+          ))}
+        </List>
       </div>
       <BottomGradient>
         <div className="container">
           {selected.length > 0 && (
-            <Button className="btn-fab" onClick={() => handleToggle({ playlist: !toggle.playlist })}>
+            <Button className="btn-primary btn-fab" onClick={() => handleToggle({ playlist: !toggle.playlist })}>
               <i className="fas fa-check" />
             </Button>
           )}

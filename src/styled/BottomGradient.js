@@ -1,8 +1,8 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export default styled.div`
-  background: ${(props) => props.theme.white};
-  background: linear-gradient(180deg, #fff0 15%, #2828287f 40%, ${(props) => props.theme.darkBg} 90%);
+  background: ${(props) => props.theme.foreground};
+  background: linear-gradient(180deg, #fff0 15%, #2828287f 40%, ${(props) => props.theme.background} 90%);
 
   position: fixed;
   bottom: 0;
@@ -12,4 +12,4 @@ export default styled.div`
   .container {
     position: relative;
   }
-`
+`;

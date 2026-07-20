@@ -1,28 +1,19 @@
 const theme = {
-  darkBg: '#181818',
-  trackBg: '#202020',
-  darkBg2: '#4f4f4f',
-  lightBg: '#f1f1f1',
-  lightBg2: '#aaaaaa',
+  background: '#181818',
+  backgroundElevated: '#4f4f4f',
+  foreground: '#f1f1f1',
+  foregroundMuted: '#aaaaaa',
   primary: '#1db954',
-  colorRed: '#ca1616',
-  borderColor: '#ddd',
-
-  lightBg3: '#bbb',
   primaryHover: '#1ed760',
-  borderColorDark: '#878787',
-  black: '#000',
-  white: '#fff',
+  colorRed: '#ca1616',
   facebook: '#4267b2',
   overlay: 'rgba(0, 0, 0, 0.5)',
-  overlayLight: 'rgba(255, 255, 255, 0.5)',
 
   // Typography
   fontSizes: {
-    xs: '11px',
-    sm: '14px',
-    base: '16px',
-    lg: '18px',
+    sm: '0.875rem',
+    base: '1rem',
+    lg: '1.125rem',
   },
 
   // Spacing
@@ -35,10 +26,10 @@ const theme = {
 
   // Border Radius
   borderRadius: {
-    sm: '4px',
-    md: '8px',
-    pill: '50px',
-    circle: '100px',
+    sm: '0.2rem',
+    md: '0.5rem',
+    pill: '2.5rem',
+    circle: '5rem',
   },
 };
 

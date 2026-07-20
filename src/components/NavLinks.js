@@ -44,12 +44,12 @@ const Nav = styled.ul`
   li {
     a {
       padding: ${(props) => props.theme.spacing.sm};
-      color: ${(props) => props.theme.lightBg2};
+      color: ${(props) => props.theme.foregroundMuted};
       text-decoration: none;
       display: block;
     }
     a.active {
-      color: ${(props) => props.theme.white};
+      color: ${(props) => props.theme.foreground};
     }
   }
 `;

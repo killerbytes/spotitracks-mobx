@@ -45,7 +45,7 @@ const ModalStyle = styled.div`
     padding: ${(props) => props.theme.spacing.md};
   }
   .modal-dialog {
-    background-color: ${(props) => props.theme.darkBg2};
+    background-color: ${(props) => props.theme.backgroundElevated};
     margin: ${(props) => props.theme.spacing.md};
     width: 100%;
     @media (min-width: 576px) {
@@ -55,9 +55,7 @@ const ModalStyle = styled.div`
     }
   }
   .modal-title {
-    color: ${(props) => props.theme.lightBg};
-    background-color: #18181863;
-    border-bottom: 1px solid ${(props) => props.theme.borderColorDark};
+    background-color: ${(props) => `color-mix(in srgb, ${props.theme.background} 50%, transparent)`};
     padding: ${(props) => props.theme.spacing.sm} ${(props) => props.theme.spacing.md};
   }
   form {

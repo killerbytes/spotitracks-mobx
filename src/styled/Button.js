@@ -2,12 +2,12 @@ import styled from 'styled-components';
 
 const Button = styled.button`
   outline: none;
-  background-color: ${(props) => props.theme.darkBg2};
+  background-color: ${(props) => props.theme.backgroundElevated};
   width: auto;
   display: inline-block;
   border: none;
   font-size: ${(props) => props.theme.fontSizes.sm};
-  color: ${(props) => props.theme.lightBg};
+  color: ${(props) => props.theme.foreground};
   text-transform: uppercase;
   text-decoration: none;
   padding: ${(props) => props.theme.spacing.sm} ${(props) => props.theme.spacing.md};
@@ -22,7 +22,7 @@ const Button = styled.button`
     opacity: 0.5;
   }
   &:hover {
-    background-color: ${(props) => props.theme.darkBg};
+    background-color: ${(props) => props.theme.background};
   }
 
   &.btn-clear {
@@ -31,7 +31,7 @@ const Button = styled.button`
     box-shadow: none;
   }
   &.btn-default {
-    background-color: ${(props) => props.theme.darkBg};
+    background-color: ${(props) => props.theme.background};
   }
   &.btn-primary {
     background-color: ${(props) => props.theme.primary};
@@ -41,7 +41,6 @@ const Button = styled.button`
     }
   }
   &.btn-fab {
-    background-color: ${(props) => props.theme.primary};
     position: absolute;
     top: -${(props) => props.theme.spacing.lg};
     right: ${(props) => props.theme.spacing.md};
@@ -52,10 +51,10 @@ const Button = styled.button`
     align-items: center;
     justify-content: center;
     margin-left: auto;
-    box-shadow: 0 0 5px 0 ${(props) => props.theme.black};
+    box-shadow: 0 0 5px 0 ${(props) => props.theme.background};
   }
   &.btn-outline {
-    border: 1px solid ${(props) => props.theme.lightBg2};
+    border: 1px solid ${(props) => props.theme.foregroundMuted};
   }
 `;
 

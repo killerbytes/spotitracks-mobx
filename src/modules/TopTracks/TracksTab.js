@@ -4,12 +4,11 @@ import Button from 'styled/Button';
 import Modal from 'components/Modal';
 import React, { useEffect } from 'react';
 import ReactGA from 'react-ga';
-import TrackItem from 'components/TrackItem';
-import TracksList from 'styled/TracksList';
 import { useStore } from 'stores';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import useToggle from 'hooks/useToggle';
+import { List, ListItem, ListItemContent, ListItemDescription, ListItemImage, ListItemText } from 'components/List';
 
 const title = {
   short_term: '4 Weeks',
@@ -63,19 +62,42 @@ const TopTracks = ({ range }) => {
         navigate(`/playlists/${res.id}`);
       });
   };
-  const mappedPlaylists = playlistStore.topTracks[range].items.map((item, key) => (
-    <TrackItem key={key} item={item}></TrackItem>
-  ));
+  const mappedPlaylists = playlistStore.topTracks[range].items.map((item, key) => {
+    const { name, artists } = item;
+    return (
+      <ListItem key={key}>
+        {item.album?.images[0].url && <ListItemImage src={item.album?.images[0].url} alt={item.name} />}
+        <ListItemContent>
+          <ListItemText>{name}</ListItemText>
+          <ListItemDescription>
+            {artists
+              ?.map((artist) => artist.name)
+              .toString()
+              .replace(',', ', ')}
+          </ListItemDescription>
+        </ListItemContent>
+        {/* <TrackItem
+                  key={key}
+                  item={item.track}
+                  name={name}
+                  artists={artists}
+                  className={dupes.indexOf(item) !== -1 ? 'is-dupe' : ''}
+                /> */}
+      </ListItem>
+    );
+  });
 
   return (
     <React.Fragment>
       <div className="container">
-        <TracksList>{mappedPlaylists}</TracksList>
+        <List>{mappedPlaylists}</List>
+
+        {/* <TracksList>{mappedPlaylists}</TracksList> */}
       </div>
       <BottomGradient>
         <div className="container">
           {!!mappedPlaylists.length && (
-            <Button className="btn-fab" onClick={() => handleToggle({ playlist: !toggle.playlist })}>
+            <Button className="btn-primary btn-fab" onClick={() => handleToggle({ playlist: !toggle.playlist })}>
               <i className="fas fa-check" />
             </Button>
           )}

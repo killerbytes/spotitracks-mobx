@@ -1,13 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import TrackItem from 'components/TrackItem';
 
 const Playing = ({ playing, playing: { item = {} }, onBlock, isLoading }) => {
   return (
     <PageHeaderStyled className="page-header">
       <ul className="container">
         {item.id ? (
-          <TrackItem
+          <div
             className="header"
             name={item.name}
             artists={item.artists}
@@ -30,7 +29,7 @@ const Playing = ({ playing, playing: { item = {} }, onBlock, isLoading }) => {
                 ))}
               </div>
             </div>
-          </TrackItem>
+          </div>
         ) : (
           <h1>Spotify is not playing</h1>
         )}

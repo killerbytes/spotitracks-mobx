@@ -2,10 +2,10 @@ import { createGlobalStyle } from 'styled-components';
 
 export default createGlobalStyle`
 body {
-    background:  ${(props) => props.theme.darkBg};
-    color: ${(props) => props.theme.lightBg3};
+    background:  ${(props) => props.theme.background};
+    color: ${(props) => props.theme.foreground};
     font-family: Roboto, sans-serif;
-    font-size: ${(props) => props.theme.fontSizes.base};
+    font-size: 16px;
     height: 100vh;
     user-select: none;
 }
@@ -16,11 +16,6 @@ body {
 }
 h1,h2,h3,h4{
     font-weight: 500;
-    color: ${(props) => props.theme.lightBg};
-
-}
-a{
-    color: ${(props) => props.theme.lightBg}
 }
 .container{
     max-width: 976px;
@@ -33,7 +28,7 @@ form{
     .form-group{
         display: flex;
         flex-direction: column;
-        gap:.5rem;
+        gap: ${(props) => props.theme.spacing.xs};
     }
     .form-control{
         width: 100%;
@@ -56,7 +51,7 @@ form{
             display: none;
         }
         .btn-bg{
-            background-color: ${(props) => props.theme.darkBg2};
+            background-color: ${(props) => props.theme.backgroundElevated};
 
         }
         input:checked+.btn-bg{

@@ -6,10 +6,9 @@ import Modal from 'components/Modal';
 import Page from 'styled/Page';
 import React, { useCallback, useEffect, useState } from 'react';
 import ReactGA from 'react-ga';
-import TrackItem from 'components/TrackItem';
-import TracksList from 'styled/TracksList';
 import { useStore } from 'stores';
 import { toJS } from 'utils';
+import { List, ListItem, ListItemContent, ListItemDescription, ListItemImage, ListItemText } from 'components/List';
 
 function getInitialValues() {
   return {
@@ -166,25 +165,39 @@ const Tracks = ({ items: _items, onSubmit }) => {
         </div>
       </div>
       <div className="container">
-        <TracksList>
+        <List>
           {items.map((item, key) => {
             const { name, artists } = item.track;
             return (
-              <TrackItem
-                key={key}
-                item={item.track}
-                name={name}
-                artists={artists}
-                className={dupes.indexOf(item) !== -1 ? 'is-dupe' : ''}
-              />
+              <ListItem key={key} className={dupes.indexOf(item) !== -1 ? 'is-dupe' : ''}>
+                {item.track.album?.images[0].url && (
+                  <ListItemImage src={item.track.album?.images[0].url} alt={item.track.name} />
+                )}
+                <ListItemContent $column>
+                  <ListItemText>{name}</ListItemText>
+                  <ListItemDescription>
+                    {artists
+                      ?.map((artist) => artist.name)
+                      .toString()
+                      .replace(',', ', ')}
+                  </ListItemDescription>
+                </ListItemContent>
+                {/* <TrackItem
+                  key={key}
+                  item={item.track}
+                  name={name}
+                  artists={artists}
+                  className={dupes.indexOf(item) !== -1 ? 'is-dupe' : ''}
+                /> */}
+              </ListItem>
             );
           })}
-        </TracksList>
+        </List>
       </div>
       <BottomGradient>
         <div className="container">
           {(formValues['shuffle'] || formValues['dedupe']) && (
-            <Button className="btn-fab" onClick={handleSave}>
+            <Button className="btn-primary btn-fab" onClick={handleSave}>
               <i className="fas fa-check" />
             </Button>
           )}

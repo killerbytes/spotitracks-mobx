@@ -33,7 +33,7 @@ const Container = styled.header`
   top: 0;
   position: sticky;
   padding: ${(props) => props.theme.spacing.sm} 0;
-  background: linear-gradient(180deg, #484848 0%, ${(props) => props.theme.darkBg} 80.01%);
+  background: linear-gradient(180deg, #484848 0%, ${(props) => props.theme.background} 80.01%);
   .header {
     position: relative;
     img.logo {

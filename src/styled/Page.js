@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export default styled.div`
   .page-header {
-    background-color: ${(props) => props.theme.darkBg};
+    background-color: ${(props) => props.theme.background};
     width: 100%;
     padding-top: ${(props) => props.theme.spacing.sm};
     padding-bottom: ${(props) => props.theme.spacing.sm};

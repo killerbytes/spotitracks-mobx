@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
 export default styled.div`
-  background-color: ${(props) => props.theme.darkBg};
-  box-shadow: 5px 0 5px ${(props) => props.theme.black};
+  background-color: ${(props) => props.theme.background};
+  box-shadow: 5px 0 5px ${(props) => props.theme.background};
   margin-bottom: ${(props) => props.theme.spacing.md};
   position: sticky;
   top: 50px;
@@ -27,7 +27,7 @@ export default styled.div`
     align-items: center;
     text-transform: uppercase;
     &.active {
-      color: ${(props) => props.theme.white};
+      color: ${(props) => props.theme.foreground};
       font-weight: 500;
       &:after {
         content: '';
