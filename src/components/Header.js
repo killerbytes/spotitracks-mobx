@@ -18,6 +18,13 @@ class Header extends React.Component {
           <img alt="logo" className="logo" src={logo} />
           <NavLinks />
           <UserBar {...this.props} />
+          <button
+            onClick={() => {
+              throw new Error('production error test!');
+            }}
+          >
+            Break the world
+          </button>
         </div>
       </Container>
     );
