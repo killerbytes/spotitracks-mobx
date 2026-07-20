@@ -1,4 +1,3 @@
-import { Link, NavLink } from 'react-router-dom';
 import BottomGradient from 'styled/BottomGradient';
 import React from 'react';
 import { List, ListItem, ListItemContent, ListItemDescription, ListItemImage, ListItemText } from 'components/List';
