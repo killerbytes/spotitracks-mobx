@@ -39,7 +39,7 @@ class MyPlaylists extends React.Component {
           <List>
             {items.map((item, key) => (
               <ListItem key={key}>
-                {item.images[0].url && <ListItemImage src={item.images[0].url} alt={item.name} />}
+                {item.images?.[0]?.url && <ListItemImage src={item.images[0].url} alt={item.name} />}
                 <ListItemContent to={`${item.id}`}>
                   <ListItemText>{item.name}</ListItemText>
                   <ListItemDescription>{item.tracks.total} tracks</ListItemDescription>

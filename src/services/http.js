@@ -11,7 +11,7 @@ const headers = () => {
 };
 
 const responseParser = (res) => res.data;
-const errorParser = (res) => res.response.data;
+const errorParser = (res) => res?.response?.data || res;
 
 let isRefreshing = false;
 let failedQueue = [];
