@@ -31,7 +31,14 @@ export default class myService {
   };
 
   refreshToken = () => {
-    const { refresh_token } = JSON.parse(localStorage.getItem(`${APP_NAME}_APP`));
+    const { refresh_token = '' } = JSON.parse(localStorage.getItem(`${APP_NAME}_APP`)) || {};
+
+    if (!refresh_token) {
+      this.removeToken();
+      window.location.href = '/';
+      return Promise.reject(new Error('Token is empty'));
+    }
+
     return axios.post(`${OAUTH_URL}/refresh`, {
       refresh_token,
     });
